@@ -1,0 +1,36 @@
+object MMBForm: TMMBForm
+  Left = 668
+  Height = 290
+  Top = 202
+  Width = 631
+  Align = alLeft
+  AllowDropFiles = True
+  Caption = 'MMBForm'
+  ClientHeight = 290
+  ClientWidth = 631
+  Color = 15527148
+  OnDropFiles = FormDropFiles
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '2.0.12.0'
+  object Memo1: TMemo
+    Left = 0
+    Height = 240
+    Top = 50
+    Width = 631
+    Align = alClient
+    Font.Name = 'Courier New'
+    Lines.Strings = (    )
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 631
+    Align = alTop
+    Caption = 'Panel1'
+    TabOrder = 1
+  end
+end

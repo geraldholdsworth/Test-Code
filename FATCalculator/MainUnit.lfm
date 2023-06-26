@@ -1,0 +1,153 @@
+object MainForm: TMainForm
+  Left = 304
+  Height = 302
+  Top = 113
+  Width = 320
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'MainForm'
+  ClientHeight = 302
+  ClientWidth = 320
+  LCLVersion = '2.2.0.4'
+  object RootEntCnt: TLabeledEdit
+    Left = 152
+    Height = 22
+    Top = 40
+    Width = 80
+    EditLabel.Height = 16
+    EditLabel.Width = 100
+    EditLabel.Caption = 'BPB_RootEntCnt'
+    LabelPosition = lpLeft
+    TabOrder = 1
+    Text = '00'
+  end
+  object BytsPerSec: TLabeledEdit
+    Left = 152
+    Height = 22
+    Top = 72
+    Width = 80
+    EditLabel.Height = 16
+    EditLabel.Width = 101
+    EditLabel.Caption = 'BPB_BytsPerSec'
+    LabelPosition = lpLeft
+    TabOrder = 2
+    Text = '200'
+  end
+  object ResvdSecCnt: TLabeledEdit
+    Left = 152
+    Height = 22
+    Top = 104
+    Width = 80
+    EditLabel.Height = 16
+    EditLabel.Width = 112
+    EditLabel.Caption = 'BPB_ResvdSecCnt'
+    LabelPosition = lpLeft
+    TabOrder = 3
+    Text = '20'
+  end
+  object NumFATs: TLabeledEdit
+    Left = 152
+    Height = 22
+    Top = 136
+    Width = 80
+    EditLabel.Height = 16
+    EditLabel.Width = 88
+    EditLabel.Caption = 'BPB_NumFATs'
+    LabelPosition = lpLeft
+    TabOrder = 4
+    Text = '02'
+  end
+  object SecPerClusLabel: TLabel
+    Left = 48
+    Height = 16
+    Top = 168
+    Width = 101
+    Caption = 'BPB_SecPerClus'
+  end
+  object SecPerClus: TLabel
+    Left = 152
+    Height = 16
+    Top = 168
+    Width = 14
+    Caption = '01'
+  end
+  object SecPerClusLabel1: TLabel
+    Left = 111
+    Height = 16
+    Top = 216
+    Width = 38
+    Caption = 'FATSz'
+  end
+  object FATSize: TLabel
+    Left = 152
+    Height = 16
+    Top = 216
+    Width = 32
+    Caption = '0000'
+  end
+  object DiscSize: TLabeledEdit
+    Left = 152
+    Height = 22
+    Top = 8
+    Width = 80
+    EditLabel.Height = 16
+    EditLabel.Width = 55
+    EditLabel.Caption = 'Disc Size'
+    LabelPosition = lpLeft
+    TabOrder = 0
+    Text = '10500000'
+  end
+  object DiscSizeLabel: TLabel
+    Left = 240
+    Height = 16
+    Top = 8
+    Width = 33
+    Caption = '??MB'
+  end
+  object Calculate: TButton
+    Left = 152
+    Height = 25
+    Top = 272
+    Width = 75
+    Caption = 'Calculate'
+    OnClick = CalculateClick
+    TabOrder = 5
+  end
+  object TotBlocksLabel: TLabel
+    Left = 76
+    Height = 16
+    Top = 192
+    Width = 73
+    Caption = 'Total Blocks'
+  end
+  object TotBlocks: TLabel
+    Left = 152
+    Height = 16
+    Top = 192
+    Width = 49
+    Caption = '000000'
+  end
+  object UpDown1: TUpDown
+    Left = 232
+    Height = 22
+    Top = 241
+    Width = 17
+    Associate = CalcConstant
+    Max = 999
+    Min = 0
+    Position = 258
+    TabOrder = 6
+  end
+  object CalcConstant: TLabeledEdit
+    Left = 152
+    Height = 22
+    Top = 241
+    Width = 80
+    EditLabel.Height = 16
+    EditLabel.Width = 82
+    EditLabel.Caption = 'CalcConstant'
+    LabelPosition = lpLeft
+    TabOrder = 7
+    Text = '258'
+  end
+end

@@ -1,0 +1,55 @@
+object MainForm: TMainForm
+  Left = 304
+  Height = 349
+  Top = 113
+  Width = 631
+  Caption = 'MainForm'
+  ClientHeight = 349
+  ClientWidth = 631
+  LCLVersion = '2.2.0.4'
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 631
+    Align = alTop
+    ClientHeight = 50
+    ClientWidth = 631
+    TabOrder = 0
+    object Button1: TButton
+      Left = 8
+      Height = 25
+      Top = 8
+      Width = 75
+      Caption = 'Button1'
+      OnClick = Button1Click
+      TabOrder = 0
+    end
+    object CheckBox1: TCheckBox
+      Left = 104
+      Height = 18
+      Top = 15
+      Width = 143
+      Caption = 'Output in CSV format'
+      Checked = True
+      State = cbChecked
+      TabOrder = 1
+    end
+  end
+  object Memo1: TMemo
+    Left = 0
+    Height = 299
+    Top = 50
+    Width = 631
+    Align = alClient
+    Font.Name = 'Courier New'
+    ParentFont = False
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+    WordWrap = False
+  end
+  object DirSelector: TSelectDirectoryDialog
+    Left = 136
+    Top = 8
+  end
+end

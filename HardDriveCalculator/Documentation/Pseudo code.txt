@@ -1,0 +1,111 @@
+procedure GetHardDriveParams(discsize:Cardinal;log2secsize:Word;bigmap:Boolean;var idlen,zone_spare,nzones,log2bpmb: Cardinal);
+var
+ r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,
+ lr,min_idlen: Word;
+label
+ FT01,FT02,FT10,FT20,FT30,FT35,FT40,FT50,FT60,FT70,FT80,FT90;
+const
+ max_idlen=21;			//Maximum possible
+ minlog2bpmb=7;
+ maxlog2bpmb=12;
+ minzonespare=32;
+ maxzonespare=64;		//Can go higher
+ minzones=1;
+ maxzones=127;			//Can go higher
+ zone0bits=8*60;
+ bigdirminsize=2048;
+begin
+//log2secsize=9			//Fixed at 512 byte sectors
+ min_idlen:=log2secsize+3;
+//
+ r0:=minlog2bpmb;		//Initialise log2bpmb
+FT10:
+ r4:=discsize;
+ r4:=r4>>r0;			//Map bits for disc
+ r1:=minzonespare;		//Initialise zone_spare
+FT20:
+ r6:=8<<log2secsize;		//Bits in a zone
+ r6:=r6-r1;			//Minus sparebits
+ r2:=minzones;			//Minimum of one zone
+ r7:=r6-zone0bits;		//Minus bits in zone 0
+FT30:
+ IF r7>r4 THEN GOTO FT35;	//Do we have enough allocation bits yet? then accept
+ r7:=r7+r6;			//More map bits
+ r2:=r2+1;			//and another zone
+ IF r2<=maxzones THEN GOTO FT30;//Still OK?
+ GOTO FT80;			//Here when too many zones, try a higher log2bpmb
+FT35:
+				//Now we have to choose idlen. We want idlen to be
+				//the smallest it can be for the disc.
+ r3:=minidlen;			//Minimum value of idlen
+FT40:
+ r8:=r6 DIV (r3+1);		//ids per zone
+ r9:=1<<r3;			//work out 1<<idlen
+ lr:=r8*r2;			//total ids needed
+ IF lr>r9 THEN GOTO FT60;	//idlen too small?
+				//We're nearly there. Now to work out if the last zone
+				//can be handled correctly.
+ lr:=r7-r4;
+ IF lr=0 THEN GOTO FT50;
+ IF lr<r3 THEN GOTO FT60;	//Must be at least idlen+1 bits
+				//Check also that we're not too close to the start of the zone
+ lr:=r7-r6;			//Get the start of the zone
+ lr:=r4-lr;			//lr = bits available in last zone
+ IF lr<r3 THEN GOTO FT60;
+				//If the last zone is the map zone (ie nzones<=2), check it's
+				//big enough to hold 2 copies of he map+the root directory
+ IF r2>2 THEN GOTO FT50;
+ r10:=2<<log2secsize;
+ r10:=r2*r10;			//r10 = 2*map size (in disc bytes)
+ r11:=(1<<r0)-1;		//r11 = LFAU-1 (in disc bytes), for rounding up
+ IF not bigdiscversion THEN
+ begin
+  r10:=r10+newdirsize;		//Short filename: add dir size to map
+  GOTO FT45;
+ end;
+				//Long filename case - root is separate object in map zone
+ r9:=r11+bigdirminsize;
+ r9:=r9>>r0;			//r9=directory size (in map bits)
+ IF r9<=r3 THEN r9:=r3+1;	//Ensure at least idlen+1
+ lr:=lr-r9;
+ IF lr<0 THEN GOTO FT60;
+FT45:
+ r10:=r10+r11;
+ r10:=r10>>r0;			//r10=map (+dir) size (in map bits)
+ IF r10<=r3 THEN r10=r3+1;	//Ensure at least idlen+1
+ IF lr<r10 THEN GOTO FT60;
+FT50:				//We've found a result - fill in the disc record
+ idlen:=r3;
+ zone_spare:=r1;
+ nzones:=r2;
+ log2bpmb:=r0;
+ IF bigdiscversion THEN GOTO FT01;//Do we have long filenames?
+				//The root dir's ID is the first available ID in the middle
+				//zone of the map
+ r2:=r2>>1;			//zones/2
+ IF r2!=0 THEN lr:=r2*r8	// * ids per zone
+          ELSE lr:=3;		//If zones/2=0 then only one zone so ID is 3
+ lr:=lr<<8;			//Construct full indirect disc address
+ lr:=lr OR 1;			//with sharing offset of 1
+ GOTO FT02;
+FT01:				//not long filenames. root dir is &2nn where nn is ((zones<<1)+1)
+ lr:=r2<<1;
+ lr:=lr+$201;
+FT02:
+ root:=lr;
+ GOTO FT90;
+FT60:
+ r3:=r3+1;
+ IF r3<=maxidlen THEN GOTO FT40;
+FT70:
+ r1:=r1+1;
+ IF r1<=maxzonespare THEN GOTO FT20;
+FT80:
+ r0:=r0+1;
+ IF r0<=maxlog2bpmb THEN GOTO FT10;
+FT90:
+ {r4:=bigmapflags;
+ IF discsize>512<<20 THEN r4:=r4 OR bigmapflags
+                     ELSE r4:=r4 AND ($FF EOR bigmapflags);
+ bigmapflags:=r4;}
+end;

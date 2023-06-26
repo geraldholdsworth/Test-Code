@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="FATCalculator.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit>
+      <Unit>
+        <Filename Value="MainUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainForm"/>
+        <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="61"/>
+        <CursorPos X="81" Y="78"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="6">
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="60" Column="42" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="72" Column="37" TopLine="49"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="67" Column="56" TopLine="51"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="68" Column="19" TopLine="51"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="73" Column="16" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="74" Column="16" TopLine="59"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="75" Column="24" TopLine="62"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

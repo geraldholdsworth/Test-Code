@@ -1,0 +1,205 @@
+; InitDiscRec
+; -----------
+; This routine generates the values in the disc record to suit the
+; chosen size of the RAM disc.  We need to work out the values, and
+; place them in a disc record
+; Entry: R5 = pointer to disc record
+; Exit : Disc record updated
+InitDiscRec     ROUT
+        Push    "R0-R11, LR"
+
+        ; internal register allocation:
+        ; r0 = current bitsize (log2bpmb)
+        ; r1 = current zonespare (zone_spare)
+        ; r2 = current zones (nzones)
+        ; r3 = current idlen (idlen)
+        ; r4 = map allocation bits required to cover disc
+        ; r5 = disc record
+        ; r6 = number of bits in a zone
+        ; r7 = number of allocation bits in the map
+        ; r8 = ids per zone
+Min_IdLen       *       MyLog2SectorSize + 3 ; min allowed idlen = log2(bits in a sector)
+      [ BigMaps
+Max_IdLen       *       21      ; max allowed idlen
+      |
+Max_IdLen       *       15      ; max allowed idlen
+      ]
+Min_Log2bpmb    *       7       ; min allowed bytes per map bit
+Max_Log2bpmb    *       12      ; max allowed bytes per map bit
+Min_ZoneSpare   *       32      ; min allowed zonespare
+Max_ZoneSpare   *       64      ; max allowed zonespare
+Min_Zones       *       1       ; min allowed zones
+Max_Zones       *       127     ; max allowed zones
+
+        MOV     r0, #Min_Log2bpmb                ; init log2bpmb
+
+10      ; loop on log2bpmb
+        LDR     r4, [r5, #DiscRecord_DiscSize]
+        MOV     r4, r4, LSR r0                  ; map bits for disc
+
+        MOV     r1, #Min_ZoneSpare              ; init ZoneSpare
+20      ; loop on zonespare
+
+        LDR     lr, [r5, #DiscRecord_Log2SectorSize]
+        MOV     r6, #8
+        MOV     r6, r6, LSL lr                  ; bits in a zone
+        SUB     r6, r6, r1                      ; minus sparebits
+
+        ; choose number of zones to suit
+
+        MOV     r2, #Min_Zones                  ; minimum of one zone
+      [ Min_Zones > 1
+        MUL     r7, r6, r2
+        SUB     r7, r7, #Zone0Bits              ; bits in zone 0
+      |
+        SUB     r7, r6, #Zone0Bits              ; bits in zone 0
+      ]
+30      ; loop for zones
+        CMP     r7, r4                          ; do we have enough allocation bits yet?
+        BHS     %FT35                           ; if we do, then accept this number of zones
+;IF r7>r4 THEN GOTO FT35
+
+        ADD     r7, r7, r6                      ; more map bits
+        ADD     r2, r2, #1                      ; and another zone
+        CMPS    r2, #Max_Zones
+        BLS     %BT30                           ; still ok
+
+        ; here when too many zones; try a higher Log2bpmb
+        B       %FT80
+
+35
+        ; now we have to choose idlen.  we want idlen to be
+        ; the smallest it can be for the disc.
+
+        MOV     r3, #Min_IdLen                  ; minimum value of idlen
+
+40      ; loop for IdLen
+
+        Push    "R0, R1, R2"
+        MOV     r0, r6                          ; allocation bits in a zone
+        ADD     r1, r3, #1                      ; idlen+1
+        DivRem  r8, r0, r1, r2, norem           ; r8=r0 DIV r1 - id per zone = zone bits div idlen+1
+        Pull    "R0, R1, R2"
+
+        ; check that IdLen is enough for total possible ids
+        MOV     r9, #1                          ; work out 1<<idlen
+        MOV     r9, r9, LSL r3                  ;
+
+        MUL     lr, r8, r2                      ; total ids needed
+        CMPS    lr, r9                          ; idlen too small?
+        BHI     %FT60                           ; yes!
+
+        ; we're nearly there.  now work out if the last zone
+        ; can be handled correctly.
+
+        SUBS    lr, r7, r4
+        BEQ     %FT50
+
+        CMPS    lr, r3                          ; must be at least idlen+1 bits
+        BLE     %FT60
+
+        ; check also that we're not too close to the start of the zone
+
+        SUB     lr, r7, r6                      ; get the start of the zone
+
+        SUB     lr, r4, lr                      ; lr = bits available in last zone
+        CMPS    lr, r3
+        BLE     %FT60
+
+        ; if the last zone is the map zone (ie nzones <= 2), check it's
+        ; big enough to hold 2 copies of the map + the root directory
+        CMP     r2, #2
+        BGT     %FT50
+
+        LDR     r10, [r5, #DiscRecord_Log2SectorSize]
+        MOV     r9, #2
+        MOV     r10, r9, LSL r10
+        MUL     r10, r2, r10                    ; r10 = 2 * map size (in disc bytes)
+        MOV     r11, #1
+        RSB     r11, r11, r11, LSL r0           ; r11 = LFAU-1 (in disc bytes), for rounding up
+        LDR     r9, [r5, #DiscRecord_BigDir_DiscVersion]
+        TEQ     r9, #0
+        ADDEQ   r10, r10, #NewDirSize           ; short filename: add dir size to map
+        BEQ     %FT45
+
+        ; long filename case - root directory is separate object in map zone
+        ADD     r9, r11, #BigDirMinSize
+        MOV     r9, r9, LSR r0                  ; r9 = directory size (in map bits)
+        CMPS    r9, r3
+        ADDLE   r9, r3, #1                      ; ensure at least idlen+1
+        SUBS    lr, lr, r9
+        BLT     %FT60
+        ; fall through to consider map object
+
+45      ADD     r10, r10, r11
+        MOV     r10, r10, LSR r0                ; r10 = map (+dir) size (in map bits)
+        CMPS    r10, r3
+        ADDLE   r10, r3, #1                     ; ensure at least idlen+1
+        CMPS    lr, r10
+        BLT     %FT60
+
+50      ; we've found a result - fill in the disc record!
+
+        STRB    r3,[r5, #DiscRecord_IdLen]      ; => set idlen
+
+        MOV     r1, r1, LSL #16
+        ORR     r1, r1, r2, LSL #8
+        STR     r1, [r5, #DiscRecord_ZoneSpare - 2]  ; => set ZoneSpare and NZones
+
+        STRB    r0, [r5, #DiscRecord_Log2bpmb]  ; => set Log2bpmb
+
+        LDR     lr, [r5, #DiscRecord_BigDir_DiscVersion]
+        TEQ     lr, #1                          ; do we have long filenames?
+        BNE     %FT01
+
+        ; the root dir's ID is the first available ID in the middle
+        ; zone of the map
+
+        MOVS    r2, r2, LSR #1                  ; zones/2
+
+        MULNE   lr, r2, r8                      ; *idsperzone
+        MOVEQ   lr, #3                          ; if if zones/2=0, then only one zone, so the id is 3 (0,1,2 reserved)
+
+        MOV     lr, lr, LSL #8                  ; construct full indirect disc address
+        ORR     lr, lr, #1                      ; with sharing offset of 1
+
+        B       %FT02
+01
+        ; not long filenames
+        ; root dir is &2nn where nn is ((zones<<1)+1)
+
+        MOV     lr, r2, LSL #1
+        ADD     lr, lr, #1
+        ADD     lr, lr, #&200
+02
+        STR     lr, [r5, #DiscRecord_Root]      ; => set Root
+
+        ; other fields in the disc record are fixed-value
+        B       %FT90
+
+60      ; NEXT IdLen
+        ADD     r3, r3, #1
+        CMPS    r3, #Max_IdLen
+        BLS     %BT40
+
+70      ; NEXT ZoneSpare
+        ADD     r1, r1, #1
+        CMPS    r1, #Max_ZoneSpare
+        BLS     %BT20
+
+80      ; NEXT Log2bpmb
+        ADD     r0, r0, #1
+        CMPS    r0, #Max_Log2bpmb               ; is it too much?
+        BLS     %BT10                           ; back around
+
+90
+      [ BigDisc2
+        ; Ensure the big disc flag is set correctly
+        LDR     r4, [r5, #DiscRecord_DiscSize]
+        CMP     r4, #512<<20
+        LDRB    r4, [r5, #DiscRecord_BigMap_Flags]
+        BICLS   r4, r4, #DiscRecord_BigMap_BigFlag
+        ORRHI   r4, r4, #DiscRecord_BigMap_BigFlag
+        STRB    r4, [r5, #DiscRecord_BigMap_Flags]
+      ]   
+        Pull    "R0-R11, PC"
