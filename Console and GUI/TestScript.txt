@@ -1,0 +1,2 @@
+help
+add "this file.txt" >thisdir thatfile.txt

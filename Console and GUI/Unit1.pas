@@ -34,10 +34,10 @@ procedure TForm1.FormShow(Sender: TObject);
 const
  cmds: array[0..6] of array[0..1] of String = (
  ('add','a:+'),
- ('create','c: '),
+ ('create','f:+'),
  ('another','n: '),
  ('rename','r: '),
- ('console','d: '),
+ ('console','c: '),
  ('single','i  '),
  ('short','s: '));
 var
@@ -79,9 +79,9 @@ end;
 
 function TForm1.ParseCommand(long: String; short: Char; multiple: Boolean; var fields: TStringArray): String;
 var
- param   : String;
  expflds : TStringArray;
  i,j     : Integer;
+ tmp     : PChar;
 begin
  Result:='';
  fields:=nil;
@@ -94,12 +94,8 @@ begin
   if multiple then fields:=Application.GetOptionValues(short,long)
   else
   begin
-   param:=Application.GetOptionValue(short,long);
-   if param<>'' then
-   begin
-    SetLength(fields,1);
-    fields[0]:=param;
-   end;
+   SetLength(fields,1);
+   fields[0]:=Application.GetOptionValue(short,long);
   end;
   if Length(fields)>0 then
   begin
@@ -112,9 +108,14 @@ begin
     if fields[i]<>'' then
     begin
      SetLength(expflds,0);
-     if Pos('|',fields[i])>0 then
+     expflds:=fields[i].Split('|','"');
+     if Length(expflds)>0 then
      begin
-      expflds:=fields[i].Split('|');
+      for j:=0 to Length(expflds)-1 do
+      begin
+       tmp:=PChar(expflds[j]);
+       expflds[j]:=AnsiExtractQuotedStr(tmp,'"');
+      end;
       SetLength(fields,Length(fields)+Length(expflds)-1);
       for j:=Length(fields)-1 downto i+1 do fields[j]:=fields[j-Length(expflds)+1];
       for j:=0 to Length(expflds)-1 do fields[i+j]:=expflds[j];
@@ -125,6 +126,7 @@ begin
    end;
   end;
  end;
+ if Length(fields)=1 then if fields[0]='' then SetLength(fields,0);
 end;
 
 end.

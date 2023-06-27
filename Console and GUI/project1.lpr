@@ -50,11 +50,13 @@ end;
 
 var
  ConsoleApp: TConsoleApp;
+ B         : Byte;
  input,
  script    : String;
  tmp       : PChar;
  params    : TStringArray;
  Index     : Integer;
+ F         : TFileStream;
 begin
  //Create GUI application
  RequireDerivedFormResource:=True;
@@ -71,7 +73,7 @@ begin
   WriteLn('Exiting to GUI.');
  end;
  //No errors, and 'console' passed as a parameter
- if(input='')and(Application.HasOption('d','console'))then
+ if(input='')and(Application.HasOption('c','console'))then
  begin
   //Create the console application
   ConsoleApp:=TConsoleApp.Create(nil);
@@ -80,69 +82,91 @@ begin
   WriteLn('********************************************************************************');
   WriteLn('Entering Console');
   //Did the user supply a file for commands to run?
-  script:=Application.GetOptionValue('d','console');
+  script:=Application.GetOptionValue('c','console');
+  if script<>'' then
+   if not FileExists(script) then
+   begin
+    WriteLn('File '''+script+''' does not exist.');
+    script:='';
+   end
+   else
+   begin
+    WriteLn('Running script '''+script+'''.');
+    //Open the script file
+    F:=TFileStream.Create(script,fmOpenRead or fmShareDenyNone);
+   end;
   //Intialise the array
   params:=nil;
-  //No script to run, so open for user input
-  if script='' then
-   repeat
-    //Prompt for input
-    write('>');
-    //Read a line of input from the user
-    readln(input);
-    //Add to the memo on the main form
-    Form1.Memo1.Lines.Add('>'+input);
-    //Split the string at each space, unless enclosed by quotes
-    params:=input.Split(' ','"');
-    //Anything entered?
-    if Length(params)>0 then
-     //Remove the quotes
-     for Index:=0 to Length(params)-1 do
-      begin
-       tmp:=PChar(params[Index]);
-       params[Index]:=AnsiExtractQuotedStr(tmp,'"');
-      end
-    else //Input was empty, so create a blank entry
+  repeat
+   //Prompt for input
+   write('>');
+   //Read a line of input from the user
+   if script='' then ReadLn(input)
+   else
+   begin //Or from the file
+    input:='';
+    B:=0;
+    repeat
+     if F.Position<F.Size then B:=F.ReadByte; //Read byte by byte
+     if(B>31)and(B<127)then input:=input+Chr(B); //Valid printable character?
+    until(B=$0A)or(F.Position=F.Size); //End of line with $0A or end of file
+    WriteLn(input); //Output the line, as if entered by the user
+   end;
+   //Add to the memo on the main form
+   Form1.Memo1.Lines.Add('>'+input);
+   //Split the string at each space, unless enclosed by quotes
+   params:=input.Split(' ','"');
+   //Anything entered?
+   if Length(params)>0 then
+    //Remove the quotes
+    for Index:=0 to Length(params)-1 do
+     begin
+      tmp:=PChar(params[Index]);
+      params[Index]:=AnsiExtractQuotedStr(tmp,'"');
+     end
+   else //Input was empty, so create a blank entry
+   begin
+    SetLength(params,1);
+    params[0]:='';
+   end;
+   //Convert the command to lower case
+   params[0]:=LowerCase(params[0]);
+   //Parse the command
+   case params[0] of
+    'add'      : //Add files
+      if Length(params)>1 then //Is there any files given?
+       for Index:=1 to Length(params)-1 do
+        if params[Index][1]='>' then //It is a directory to select
+         WriteLn('Select directory '''+Copy(params[Index],2)+'''.')
+        else                         //Just add a file
+         WriteLn('Adding file: '''+params[Index]+'''.')
+      else WriteLn('Nothing to add.');//Nothing has been passed
+    'help'     : //Help command
+     begin
+      WriteLn('Help');
+      WriteLn('----');
+      WriteLn('add      : Adds the files listed after the command.');
+      WriteLn('           Use space to separate, and enclose in quotes if space required.');
+      WriteLn('exit     : Quits console and application.');
+      WriteLn('exittogui: Quits the console and opens the GUI application.');
+      WriteLn('help     : Shows this text.');
+     end;
+    'exit',      //Exit the console application
+    'exittogui': WriteLn('Exiting.');
+    ''         :;//Blank entry, so just ignore
+   otherwise WriteLn('Unknown command.'); //Something not recognised
+   end;
+   //End of the script? Then close the file
+   if script<>'' then
+    if F.Position=F.Size then
     begin
-     SetLength(params,1);
-     params[0]:='';
+     F.Free;
+     script:='';
     end;
-    //Convert the command to lower case
-    params[0]:=LowerCase(params[0]);
-    //Parse the command
-    case params[0] of
-     'add'      : //Add files
-       if Length(params)>1 then //Is there any files given?
-        for Index:=1 to Length(params)-1 do
-         if params[Index][1]='>' then //It is a directory to select
-          WriteLn('Select directory '''+Copy(params[Index],2)+'''.')
-         else                         //Just add a file
-          WriteLn('Adding file: '''+params[Index]+'''.')
-       else WriteLn('Nothing to add.');//Nothing has been passed
-     'help'     : //Help command
-      begin
-       WriteLn('Help');
-       WriteLn('----');
-       WriteLn('add      : Adds the files listed after the command.');
-       WriteLn('           Use space to separate, and enclose in quotes if space required.');
-       WriteLn('exit     : Quits console and application.');
-       WriteLn('exittogui: Quits the console and opens the GUI application.');
-       WriteLn('help     : Shows this text.');
-      end;
-     'exit',      //Exit the console application
-     'exittogui': WriteLn('Exiting.');
-     ''             : ;//Blank entry, so just ignore
-    otherwise WriteLn('Unknown command'); //Something not recognised
-    end;
-    //Continue until the user specifies to exit
-   until(params[0]='exit')or(params[0]='exittogui')
-  else //Run the script file specified
-  begin
-   SetLength(params,1);
-   params[0]:='exit';
-   //On production code, this would be higher up and use the same parsing code as above
-   WriteLn('At this point we would be running the script file '''+script+'''.');
-  end;
+   //Continue until the user specifies to exit
+  until(params[0]='exit')or(params[0]='exittogui');
+  //Script file still open? Then close it
+  if script<>'' then F.Free;
   //Footer at close of console
   WriteLn('********************************************************************************');
   //Close the console application
