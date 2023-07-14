@@ -21,6 +21,7 @@ uses
  Interfaces, // this includes the LCL widgetset
  Classes, SysUtils, CustApp,//For the console side of this
  Forms, Unit1
+ {$IFDEF Windows},Windows{$ENDIF}
  { you can add units after this };
 
 {$R *.res}
@@ -64,8 +65,16 @@ begin
  Application.Title:='Console Application Demo';
  Application.Initialize;
  Application.CreateForm(TForm1, Form1);
+ {$IFDEF Windows}
+ if Application.HasOption('c','console') then
+ begin
+  AllocConsole;
+  IsConsole:=True;
+  SysInitStdIO;
+ end;
+ {$ENDIF}
  //Do we have 'console' passed as a parameter?
- input:=Application.CheckOptions('d:','console:');
+ input:=Application.CheckOptions('c:','console:');
  //No, we have something else so quit to the GUI
  if input<>'' then //This will also quit if 'console' was supplied, but there was other text too
  begin
@@ -173,7 +182,18 @@ begin
   ConsoleApp.Free;
   //Close the GUI application
   if params[0]='exit' then Application.Terminate
-  else Application.Run //Otherwise open the GUI application
- end else Application.Run; //Console application not specified, so open as normal
+  else
+  begin //Otherwise open the GUI application
+   {$IFDEF Windows}
+   IsConsole:=False;
+   {$ENDIF}
+   Application.Run;
+  end;
+ end else
+ begin
+  {$IFDEF Windows}
+  IsConsole:=False;
+  {$ENDIF}
+  Application.Run; //Console application not specified, so open as normal
+ end;
 end.
-
