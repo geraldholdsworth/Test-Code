@@ -21,7 +21,7 @@ uses
  Interfaces, // this includes the LCL widgetset
  Classes, SysUtils, CustApp,//For the console side of this
  Forms, Unit1
- {$IFDEF Windows},Windows{$ENDIF}
+ {$IFDEF Windows},Windows,Registry{$ENDIF}
  { you can add units after this };
 
 {$R *.res}
@@ -58,37 +58,36 @@ var
  params    : TStringArray;
  Index     : Integer;
  F         : TFileStream;
+ {$IFDEF Windows}
+ R         : TRegistry;
+ {$ENDIF}
 begin
  //Create GUI application
  RequireDerivedFormResource:=True;
  Application.Scaled:=True;
- Application.Title:='Console Application Demo';
  Application.Initialize;
  Application.CreateForm(TForm1, Form1);
  {$IFDEF Windows}
  if Application.HasOption('c','console') then
  begin
+  R:=TRegistry.Create;
+  R.OpenKey('Console',True);
+  R.WriteInteger('VirtualTerminalLevel',1);
+  R.Free;
   AllocConsole;
   IsConsole:=True;
   SysInitStdIO;
+  SetConsoleOutputCP(CP_UTF8);
  end;
  {$ENDIF}
- //Do we have 'console' passed as a parameter?
- input:=Application.CheckOptions('c:','console:');
- //No, we have something else so quit to the GUI
- if input<>'' then //This will also quit if 'console' was supplied, but there was other text too
- begin
-  WriteLn(input); //Display the errors
-  WriteLn('Exiting to GUI.');
- end;
  //No errors, and 'console' passed as a parameter
- if(input='')and(Application.HasOption('c','console'))then
+ if Application.HasOption('c','console') then
  begin
   //Create the console application
   ConsoleApp:=TConsoleApp.Create(nil);
   ConsoleApp.Title:='Console Application';
   //Write out a header
-  WriteLn('********************************************************************************');
+  WriteLn(#$1B'[91m'+StringOfChar('*',80)+#$1B'[0m');
   WriteLn('Entering Console');
   //Did the user supply a file for commands to run?
   script:=Application.GetOptionValue('c','console');
@@ -177,7 +176,7 @@ begin
   //Script file still open? Then close it
   if script<>'' then F.Free;
   //Footer at close of console
-  WriteLn('********************************************************************************');
+  WriteLn(#$1B'[91m'+StringOfChar('*',80)+#$1B'[0m');
   //Close the console application
   ConsoleApp.Free;
   //Close the GUI application

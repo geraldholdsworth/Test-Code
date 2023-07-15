@@ -9,9 +9,9 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="66"/>
-        <CursorPos X="30" Y="82"/>
-        <UsageCount Value="105"/>
+        <TopLine Value="160"/>
+        <CursorPos X="54" Y="179"/>
+        <UsageCount Value="106"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -22,7 +22,7 @@
         <ResourceBaseClass Value="Form"/>
         <TopLine Value="79"/>
         <CursorPos X="68" Y="129"/>
-        <UsageCount Value="105"/>
+        <UsageCount Value="106"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -42,7 +42,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="27">
+    <JumpHistory HistoryIndex="28">
       <Position>
         <Filename Value="project1.lpr"/>
         <Caret Line="66" Column="40" TopLine="55"/>
@@ -154,6 +154,10 @@
       <Position>
         <Filename Value="project1.lpr"/>
         <Caret Line="69" Column="20"/>
+      </Position>
+      <Position>
+        <Filename Value="project1.lpr"/>
+        <Caret Line="63" Column="10" TopLine="55"/>
       </Position>
     </JumpHistory>
     <RunParams>
