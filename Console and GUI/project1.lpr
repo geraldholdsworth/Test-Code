@@ -21,7 +21,7 @@ uses
  Interfaces, // this includes the LCL widgetset
  Classes, SysUtils, CustApp,//For the console side of this
  Forms, Unit1
- {$IFDEF Windows},Windows,Registry{$ENDIF}
+ {$IFDEF Windows},Windows{$ENDIF} //For Windows console
  { you can add units after this };
 
 {$R *.res}
@@ -52,6 +52,8 @@ end;
 var
  ConsoleApp: TConsoleApp;
  B         : Byte;
+ redstyle,
+ nostyle,
  input,
  script    : String;
  tmp       : PChar;
@@ -59,7 +61,8 @@ var
  Index     : Integer;
  F         : TFileStream;
  {$IFDEF Windows}
- R         : TRegistry;
+ hwConsole : hWnd;
+ lwMode    : LongWord;
  {$ENDIF}
 begin
  //Create GUI application
@@ -67,27 +70,37 @@ begin
  Application.Scaled:=True;
  Application.Initialize;
  Application.CreateForm(TForm1, Form1);
- {$IFDEF Windows}
- if Application.HasOption('c','console') then
- begin
-  R:=TRegistry.Create;
-  R.OpenKey('Console',True);
-  R.WriteInteger('VirtualTerminalLevel',1);
-  R.Free;
-  AllocConsole;
-  IsConsole:=True;
-  SysInitStdIO;
-  SetConsoleOutputCP(CP_UTF8);
- end;
- {$ENDIF}
  //No errors, and 'console' passed as a parameter
  if Application.HasOption('c','console') then
  begin
+  {$IFDEF Windows}
+  //Windows doesn't create a console with a GUI app, so we need to do it ourselves
+  redstyle:='';
+  nostyle :='';
+  //Now create the console
+  AllocConsole;
+  IsConsole:=True;
+  SysInitStdIO;
+  SetConsoleOutputCP(CP_UTF8);//So that the escape sequences will work
+  //Try and enable virtual terminal processing
+  hwConsole:=GetStdHandle(STD_OUTPUT_HANDLE);
+  If GetConsoleMode(hwConsole,@lwMode)then
+  begin
+   lwMode:=lwMode or ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+   if SetConsoleMode(hwConsole,lwMode)then
+   begin
+    {$ENDIF}
+    redstyle:=#$1B'[91m';
+    nostyle :=#$1B'[0m';
+    {$IFDEF Windows}
+   end;
+  end;
+  {$ENDIF}
   //Create the console application
   ConsoleApp:=TConsoleApp.Create(nil);
   ConsoleApp.Title:='Console Application';
   //Write out a header
-  WriteLn(#$1B'[91m'+StringOfChar('*',80)+#$1B'[0m');
+  WriteLn(redstyle+StringOfChar('*',80)+nostyle);
   WriteLn('Entering Console');
   //Did the user supply a file for commands to run?
   script:=Application.GetOptionValue('c','console');
@@ -176,7 +189,7 @@ begin
   //Script file still open? Then close it
   if script<>'' then F.Free;
   //Footer at close of console
-  WriteLn(#$1B'[91m'+StringOfChar('*',80)+#$1B'[0m');
+  WriteLn(redstyle+StringOfChar('*',80)+nostyle);
   //Close the console application
   ConsoleApp.Free;
   //Close the GUI application

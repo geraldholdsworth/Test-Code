@@ -9,9 +9,9 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="160"/>
-        <CursorPos X="54" Y="179"/>
-        <UsageCount Value="106"/>
+        <TopLine Value="70"/>
+        <CursorPos X="3" Y="97"/>
+        <UsageCount Value="116"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -22,7 +22,7 @@
         <ResourceBaseClass Value="Form"/>
         <TopLine Value="79"/>
         <CursorPos X="68" Y="129"/>
-        <UsageCount Value="106"/>
+        <UsageCount Value="116"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -31,7 +31,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="3036"/>
         <CursorPos X="58" Y="3042"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/local/share/fpcsrc/3.2.0/packages/fcl-base/src/custapp.pp"/>
@@ -39,14 +39,10 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="481"/>
         <CursorPos X="7" Y="504"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="28">
-      <Position>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="66" Column="40" TopLine="55"/>
-      </Position>
       <Position>
         <Filename Value="project1.lpr"/>
         <Caret Line="54" Column="22" TopLine="49"/>
@@ -158,6 +154,14 @@
       <Position>
         <Filename Value="project1.lpr"/>
         <Caret Line="63" Column="10" TopLine="55"/>
+      </Position>
+      <Position>
+        <Filename Value="project1.lpr"/>
+        <Caret Line="179" Column="54" TopLine="5"/>
+      </Position>
+      <Position>
+        <Filename Value="project1.lpr"/>
+        <Caret Line="183" Column="33" TopLine="172"/>
       </Position>
     </JumpHistory>
     <RunParams>
