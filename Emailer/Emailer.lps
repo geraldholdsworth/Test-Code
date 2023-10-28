@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="Emailer.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="25" Y="13"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="MainUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <ResourceBaseClass Value="Form"/>
+        <TopLine Value="63"/>
+        <CursorPos X="48" Y="95"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="blcksock.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="78"/>
+        <CursorPos X="3" Y="105"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="synsock.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="27"/>
+        <CursorPos X="10" Y="68"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="smtpsend.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="133"/>
+        <CursorPos X="36" Y="153"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="mimepart.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="46"/>
+        <CursorPos X="33" Y="71"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="synachar.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="60"/>
+        <CursorPos X="3" Y="89"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="mimemess.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="68"/>
+        <CursorPos X="48" Y="156"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Emaler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="10"/>
+        <UsageCount Value="20"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Emails.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="44" Y="152"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="83" Column="15" TopLine="64"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="77" Column="24" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="9" Column="49" TopLine="5"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="56" Column="22" TopLine="28"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="57" Column="22" TopLine="29"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="58" Column="22" TopLine="30"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="60" Column="22" TopLine="32"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="93" Column="31" TopLine="64"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="94" Column="6" TopLine="61"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="161" Column="5" TopLine="114"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="55" Column="36" TopLine="26"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="62" Column="41" TopLine="114"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="93" Column="6" TopLine="70"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="94" Column="6" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="63" Column="2" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="8" Column="69"/>
+      </Position>
+      <Position>
+        <Filename Value="Emailer.lpr"/>
+        <Caret Line="13" Column="23"/>
+      </Position>
+      <Position>
+        <Filename Value="Emails.pas"/>
+        <Caret Line="8" Column="2"/>
+      </Position>
+      <Position>
+        <Filename Value="Emails.pas"/>
+        <Caret Line="44" Column="6" TopLine="15"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="8" Column="75"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="62" Column="72" TopLine="30"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="63" Column="72" TopLine="31"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="64" Column="72" TopLine="32"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="96" Column="48" TopLine="46"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="80" Column="39" TopLine="46"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="96" Column="16" TopLine="50"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="31" Column="28"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="30" Column="28"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="83" Column="40" TopLine="52"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="92" Column="6" TopLine="63"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

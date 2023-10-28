@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="EchoSrv.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="10" Y="11"/>
+        <UsageCount Value="27"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="18"/>
+        <CursorPos X="36" Y="64"/>
+        <UsageCount Value="27"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="echo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="10"/>
+        <CursorPos X="32" Y="139"/>
+        <UsageCount Value="27"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="blcksock.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="508"/>
+        <CursorPos X="14" Y="532"/>
+        <UsageCount Value="27"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
+      <Unit>
+        <Filename Value="synacode.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="27"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
+      <Unit>
+        <Filename Value="synsock.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="27"/>
+        <CursorPos X="10" Y="68"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../Logger/MainUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="39" Y="14"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/local/share/fpcsrc/rtl/objpas/classes/classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1805"/>
+        <CursorPos X="15" Y="1829"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ssfpc.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="66"/>
+        <CursorPos X="3" Y="91"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../3rd Party Code/synapse40/source/demo/echo/echo.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="22"/>
+        <CursorPos X="34" Y="54"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="117" Column="48" TopLine="90"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="88" Column="3" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="68" Column="19" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="23" Column="22"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="117" Column="6" TopLine="85"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="56" Column="23" TopLine="44"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="69" Column="7" TopLine="44"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="72" Column="32" TopLine="45"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="75" Column="27" TopLine="49"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="105" Column="5" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="17"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="40" TopLine="40"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="34" Column="37" TopLine="17"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="29" Column="24"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="60" Column="7" TopLine="39"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="106" Column="7" TopLine="80"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="85" Column="31" TopLine="56"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="80" Column="15" TopLine="55"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="94" Column="9" TopLine="69"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="109" Column="63" TopLine="84"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="32" Column="34" TopLine="7"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="57" Column="23" TopLine="75"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="107" Column="7" TopLine="85"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="105" Column="61" TopLine="82"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="64" Column="62" TopLine="17"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="146" Column="24" TopLine="120"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="105" TopLine="67"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="151" TopLine="126"/>
+      </Position>
+      <Position>
+        <Filename Value="echo.pas"/>
+        <Caret Line="152" TopLine="126"/>
+      </Position>
+      <Position>
+        <Filename Value="main.pas"/>
+        <Caret Line="5" Column="43"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
