@@ -1,0 +1,21 @@
+object Form1: TForm1
+  Left = 389
+  Height = 465
+  Top = 149
+  Width = 631
+  Caption = 'Form1'
+  ClientHeight = 465
+  ClientWidth = 631
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '3.0.0.3'
+  object Memo1: TMemo
+    Left = 0
+    Height = 465
+    Top = 0
+    Width = 631
+    Align = alClient
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+  end
+end

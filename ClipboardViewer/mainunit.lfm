@@ -1,0 +1,111 @@
+object MainForm: TMainForm
+  Left = 295
+  Height = 446
+  Top = 324
+  Width = 583
+  Caption = 'Clipboard Viewer'
+  ClientHeight = 446
+  ClientWidth = 583
+  Color = 15527148
+  LCLVersion = '2.0.12.0'
+  object Memo1: TMemo
+    Left = 0
+    Height = 404
+    Top = 42
+    Width = 408
+    Align = alClient
+    Color = 15527148
+    Font.Name = 'Courier New'
+    Lines.Strings = (    )
+    ParentFont = False
+    ReadOnly = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    WordWrap = False
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 42
+    Top = 0
+    Width = 583
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 42
+    ClientWidth = 583
+    TabOrder = 1
+    object StartStopBtn: TButton
+      Left = 8
+      Height = 25
+      Top = 8
+      Width = 112
+      Caption = 'Read Clipboard'
+      OnClick = StartStopBtnClick
+      TabOrder = 0
+    end
+    object SaveBtn: TButton
+      Left = 128
+      Height = 25
+      Top = 8
+      Width = 112
+      Caption = 'Save To File'
+      OnClick = SaveBtnClick
+      TabOrder = 1
+    end
+    object Button1: TButton
+      Left = 272
+      Height = 25
+      Top = 8
+      Width = 160
+      Caption = 'Copy File to Clipboard'
+      OnClick = Button1Click
+      TabOrder = 2
+    end
+  end
+  object Splitter1: TSplitter
+    Left = 408
+    Height = 404
+    Top = 42
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
+  end
+  object Panel2: TPanel
+    Left = 413
+    Height = 404
+    Top = 42
+    Width = 170
+    Align = alRight
+    BevelOuter = bvNone
+    ClientHeight = 404
+    ClientWidth = 170
+    TabOrder = 3
+    object ScrollBox1: TScrollBox
+      Left = 0
+      Height = 404
+      Top = 0
+      Width = 170
+      HorzScrollBar.Page = 90
+      VertScrollBar.Page = 90
+      Align = alClient
+      ClientHeight = 402
+      ClientWidth = 168
+      TabOrder = 0
+      object Image1: TImage
+        Left = 0
+        Height = 90
+        Top = 0
+        Width = 90
+        AutoSize = True
+        KeepOriginXWhenClipped = True
+        KeepOriginYWhenClipped = True
+        Proportional = True
+        Stretch = True
+        Transparent = True
+      end
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 303
+    Top = 10
+  end
+end

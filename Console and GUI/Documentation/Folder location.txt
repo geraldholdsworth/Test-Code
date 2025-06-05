@@ -1,0 +1,1 @@
+cd /Users/geraldholdsworth/Library/Mobile\ Documents/com\~apple\~CloudDocs/Programming/Lazarus/Old\ and\ Test\ Projects/Console\ and\ GUI/lib/x86_64-darwin

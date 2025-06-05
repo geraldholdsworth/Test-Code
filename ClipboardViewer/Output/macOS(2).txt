@@ -1,0 +1,74 @@
+macOS
+[10E950D80]
+	Size: 62 bytes
+		file:///Users/geraldholdsworth/Documents/2020-2021%20PoTY.xlsx
+[10E950D40]
+	Size: 62 bytes
+		file:///Users/geraldholdsworth/Documents/2020-2021%20PoTY.xlsx
+[10E950540]
+	Size: 262 bytes
+		<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+		<plist version="1.0">
+		<array>
+			<string>/Users/geraldholdsworth/Documents/2020-2021 PoTY.xlsx</string>
+		</array>
+		</plist>
+[10E950E00]
+	Size: 262 bytes
+		<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+		<plist version="1.0">
+		<array>
+			<string>/Users/geraldholdsworth/Documents/2020-2021 PoTY.xlsx</string>
+		</array>
+		</plist>
+[10E950E40]
+	Size: 290 bytes
+		<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+		<plist version="1.0">
+		<array>
+			<string>file:///Users/geraldholdsworth/Documents/2020-2021%20PoTY.xlsx</string>
+			<string></string>
+		</array>
+		</plist>
+[10E950EC0]
+	Size: 290 bytes
+		<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+		<plist version="1.0">
+		<array>
+			<string>file:///Users/geraldholdsworth/Documents/2020-2021%20PoTY.xlsx</string>
+			<string></string>
+		</array>
+		</plist>
+[10E950F40]
+	Size: 1 bytes
+		{0x01}
+[10E950FC0]
+	Size: 255825 bytes
+[10E951000]
+	Size: 255825 bytes
+[10E951080]
+	Size: 0 bytes
+[10E9510C0]
+	Size: 40 bytes
+		{0xFF}{0xFE}2{0x00}0{0x00}2{0x00}0{0x00}-{0x00}2{0x00}0{0x00}2{0x00}1{0x00} {0x00}P{0x00}o{0x00}T{0x00}Y{0x00}.{0x00}x{0x00}l{0x00}s{0x00}x{0x00}
+[10E951100]
+	Size: 40 bytes
+		{0xFF}{0xFE}2{0x00}0{0x00}2{0x00}0{0x00}-{0x00}2{0x00}0{0x00}2{0x00}1{0x00} {0x00}P{0x00}o{0x00}T{0x00}Y{0x00}.{0x00}x{0x00}l{0x00}s{0x00}x{0x00}
+[10E951140]
+	Size: 19 bytes
+		2020-2021 PoTY.xlsx
+[10E9511C0]
+	Size: 19 bytes
+		2020-2021 PoTY.xlsx
+[10E951240]
+	Size: 4198020 bytes
+[10E9512C0]
+	Size: 4198020 bytes
+[10E950500]
+	Size: 3145782 bytes
+	Picture data
+

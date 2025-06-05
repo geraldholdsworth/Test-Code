@@ -1,0 +1,115 @@
+Run via app bundle:
+{
+    "COMMAND_MODE" = unix2003;
+    HOME = "/Users/geraldholdsworth";
+    LOGNAME = geraldholdsworth;
+    PATH = "/usr/bin:/bin:/usr/sbin:/sbin";
+    SHELL = "/bin/zsh";
+    "SSH_AUTH_SOCK" = "/private/tmp/com.apple.launchd.35SDrFixwG/Listeners";
+    TMPDIR = "/var/folders/sp/r7dyc78d19j36ftwtmckmr3w0000gn/T/";
+    USER = geraldholdsworth;
+    "XPC_FLAGS" = 0x0;
+    "XPC_SERVICE_NAME" = "application.com.company.project1.36549144.37180253";
+    "__CFBundleIdentifier" = "com.company.project1";
+    "__CF_USER_TEXT_ENCODING" = "0x1F5:0:2";
+}
+
+Run via Terminal
+{
+    HOME = "/Users/geraldholdsworth";
+    "HOMEBREW_CELLAR" = "/opt/homebrew/Cellar";
+    "HOMEBREW_PREFIX" = "/opt/homebrew";
+    "HOMEBREW_REPOSITORY" = "/opt/homebrew";
+    INFOPATH = "/opt/homebrew/share/info:";
+    LANG = "en_GB.UTF-8";
+    LOGNAME = geraldholdsworth;
+    MANPATH = "/opt/homebrew/share/man::";
+    OLDPWD = "/Users/geraldholdsworth/Library/Mobile Documents/com~apple~CloudDocs/Programming/Lazarus/Old and Test Projects/Console and GUI/lib";
+    PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Applications/VMware Fusion.app/Contents/Public";
+    PWD = "/Users/geraldholdsworth/Library/Mobile Documents/com~apple~CloudDocs/Programming/Lazarus/Old and Test Projects/Console and GUI/lib/x86_64-darwin";
+    SHELL = "/bin/zsh";
+    SHLVL = 1;
+    "SSH_AUTH_SOCK" = "/private/tmp/com.apple.launchd.35SDrFixwG/Listeners";
+    TERM = "xterm-256color";
+    "TERM_PROGRAM" = "Apple_Terminal";
+    "TERM_PROGRAM_VERSION" = 453;
+    "TERM_SESSION_ID" = "1CDE8358-C3EF-492A-955D-6A36DDECAC31";
+    TMPDIR = "/var/folders/sp/r7dyc78d19j36ftwtmckmr3w0000gn/T/";
+    USER = geraldholdsworth;
+    "XPC_FLAGS" = 0x0;
+    "XPC_SERVICE_NAME" = 0;
+    "_" = "/Users/geraldholdsworth/Library/Mobile Documents/com~apple~CloudDocs/Programming/Lazarus/Old and Test Projects/Console and GUI/lib/x86_64-darwin/./project1";
+    "__CFBundleIdentifier" = "com.apple.Terminal";
+    "__CF_USER_TEXT_ENCODING" = "0x1F5:0:2";
+}
+
+Run via Filer (direct to binary):
+{
+    HOME = "/Users/geraldholdsworth";
+    "HOMEBREW_CELLAR" = "/opt/homebrew/Cellar";
+    "HOMEBREW_PREFIX" = "/opt/homebrew";
+    "HOMEBREW_REPOSITORY" = "/opt/homebrew";
+    INFOPATH = "/opt/homebrew/share/info:";
+    LANG = "en_GB.UTF-8";
+    LOGNAME = geraldholdsworth;
+    MANPATH = "/opt/homebrew/share/man::";
+    OLDPWD = "/Users/geraldholdsworth/Library/Mobile Documents/com~apple~CloudDocs/Programming/Lazarus/Old and Test Projects/Console and GUI/lib";
+    PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Applications/VMware Fusion.app/Contents/Public";
+    PWD = "/Users/geraldholdsworth/Library/Mobile Documents/com~apple~CloudDocs/Programming/Lazarus/Old and Test Projects/Console and GUI/lib/x86_64-darwin";
+    SHELL = "/bin/zsh";
+    SHLVL = 1;
+    "SSH_AUTH_SOCK" = "/private/tmp/com.apple.launchd.35SDrFixwG/Listeners";
+    TERM = "xterm-256color";
+    "TERM_PROGRAM" = "Apple_Terminal";
+    "TERM_PROGRAM_VERSION" = 453;
+    "TERM_SESSION_ID" = "1CDE8358-C3EF-492A-955D-6A36DDECAC31";
+    TMPDIR = "/var/folders/sp/r7dyc78d19j36ftwtmckmr3w0000gn/T/";
+    USER = geraldholdsworth;
+    "XPC_FLAGS" = 0x0;
+    "XPC_SERVICE_NAME" = 0;
+    "_" = "/Users/geraldholdsworth/Library/Mobile Documents/com~apple~CloudDocs/Programming/Lazarus/Old and Test Projects/Console and GUI/lib/x86_64-darwin/project1";
+    "__CFBundleIdentifier" = "com.apple.Terminal";
+    "__CF_USER_TEXT_ENCODING" = "0x1F5:0:2";
+}
+
+Run by Lazarus:
+{
+    "COMMAND_MODE" = unix2003;
+    HOME = "/Users/geraldholdsworth";
+    LOGNAME = geraldholdsworth;
+    "OS_ACTIVITY_DT_MODE" = enable;
+    PATH = "/usr/bin:/bin:/usr/sbin:/sbin";
+    SHELL = "/bin/zsh";
+    "SSH_AUTH_SOCK" = "/private/tmp/com.apple.launchd.35SDrFixwG/Listeners";
+    TMPDIR = "/var/folders/sp/r7dyc78d19j36ftwtmckmr3w0000gn/T/";
+    USER = geraldholdsworth;
+    "XPC_FLAGS" = 0x0;
+    "XPC_SERVICE_NAME" = "application.lazarus.freepascal.ide.20937143.21045621";
+    "__CFBundleIdentifier" = "lazarus.freepascal.ide";
+    "__CF_USER_TEXT_ENCODING" = "0x1F5:0:2";
+}
+
+Using processInfo.environment, we can use:
+
+Running via app bundle in Filer, or by Lazarus:
+COMMAND_MODE is set ("unix2003")
+TERM is not set
+TERM_PROGRAM is not set
+TERM_PROGRAM_VERSION is not set
+TERM_SESSION_ID is not set
+XPC_SERVICE_NAME is set to "application.com.<company>.<project>.xxxx.xxxx" or "application.lazarus.freepascal.ide.xxxx.xxxx"
+__CFBundleIdentifier is set to "com.<company>.<project>" or "lazarus.freepascal.ide"
+
+Running via Terminal (or by running the binary from Filer):
+COMMAND_MODE is not set
+TERM is set
+TERM_PROGRAM is set ("Apple_Terminal")
+TERM_PROGRAM_VERSION is set
+TERM_SESSION_ID is set
+XPC_SERVICE_NAME is set to 0
+__CFBundleIdentifier is set to "com.apple.Terminal"
+
+-----CODE-----
+
+Use NSProcessInfo.ProcessInfo.environment.objectForKey(NSStr(<key>)).UTF8String to get a value from a key.
+Or NSProcessInfo.ProcessInfo.environment.description.UTF8String for the entire dictionary.

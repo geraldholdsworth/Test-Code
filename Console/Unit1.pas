@@ -32,15 +32,14 @@ implementation
 
 procedure TForm1.FormShow(Sender: TObject);
 const
- cmds: array[0..7] of array[0..1] of String = (
- ('add'    ,'a:+'),
- ('create' ,'f:+'),
+ cmds: array[0..6] of array[0..1] of String = (
+ ('add','a:+'),
+ ('create','f:+'),
  ('another','n: '),
- ('rename' ,'r: '),
+ ('rename','r: '),
  ('console','c: '),
- ('help'   ,'h  '),
- ('short'  ,'s: '),
- ('gui'    ,'g  '));
+ ('single','i  '),
+ ('short','s: '));
 var
  short,
  long   : String;

@@ -1,0 +1,10 @@
+		Application configured as a GUI app					Application configured as console app
+Variable	Explorer		CMD			Shortcut		Explorer		CMD			Shortcut
+dwFlags		0x00000401		0x00000000		0x00000C01		0x00000001		0x00000000		0x00000801
+wShowWindow	0x0001			0x0001			0x0001			0x0001			0x0001			0x0001
+hStdOutput	0x0000000000010001	0xFFFFFFFFFFFFFFFF	0x0000000000010001	0xFFFFFFFFFFFFFFFF	0xFFFFFFFFFFFFFFFF	0xFFFFFFFFFFFFFFFF
+
+Notes
+* All tests done on Windows 10 via Remote Desktop.
+* Ran as a shortcut from Explorer, via command prompt, and pinned to the Taskbar - results were the same.
+* wShowWindow can be changed by changing if the application starts up as Normal, Minimised (0x0007), or Maximised (0x0003).
