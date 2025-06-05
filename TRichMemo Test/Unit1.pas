@@ -56,7 +56,7 @@ procedure TForm1.Button1Click(Sender: TObject);
   end;
  end;
 begin
- AddColorStr('Black, ');
+{ AddColorStr('Black, ');
  AddColorStr('Green, '  ,$00FF00,false);
  AddColorStr('Blue, '   ,$FF0000,false);
  AddColorStr('Red, '    ,$0000FF,false);
@@ -69,7 +69,9 @@ begin
  AddColorStr('Red, '    ,$0000FF,false);
  AddColorStr('Yellow, ' ,$00FFFF,False);
  AddColorStr('Magenta, ',$FF00FF,false);
- AddColorStr('Cyan'     ,$FFFF00,false);
+ AddColorStr('Cyan'     ,$FFFF00,false);}
+ RichMemo1.Lines.Add(#$1B'[1mBold'#$1B'[0m');
+ RichMemo1.Lines.Add(#$1B'[31mRed'#$1B'[0m'); ;
 end;
 
 end.

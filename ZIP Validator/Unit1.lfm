@@ -1,0 +1,32 @@
+object Form1: TForm1
+  Left = 357
+  Height = 591
+  Top = 44
+  Width = 743
+  AllowDropFiles = True
+  Caption = 'Form1'
+  ClientHeight = 591
+  ClientWidth = 743
+  LCLVersion = '4.0.0.4'
+  OnDropFiles = FormDropFiles
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 743
+    Align = alTop
+    Caption = 'Drop a ZIP file here to validate'
+    TabOrder = 0
+  end
+  object Memo1: TMemo
+    Left = 0
+    Height = 541
+    Top = 50
+    Width = 743
+    Align = alClient
+    Font.Name = 'Courier New'
+    ParentFont = False
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+end
