@@ -7,7 +7,6 @@ interface
 uses
  Classes,SysUtils,smtpsend,synautil,ssl_openssl,mimemess,mimepart,synachar;
 
-
 function SendEmail(LFrom,LTo,LSubject: String;LContent: TStrings;
                    LServer,LPort,LUsername,LPassword: String;
                    UseSSL: Boolean;LAttachments: TStrings): String;

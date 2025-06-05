@@ -1,0 +1,301 @@
+object MainForm: TMainForm
+  Left = 799
+  Height = 512
+  Top = 537
+  Width = 617
+  Caption = 'LG Remote'
+  ClientHeight = 512
+  ClientWidth = 617
+  Position = poScreenCenter
+  LCLVersion = '3.0.0.3'
+  object ControlPanel: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 617
+    Align = alTop
+    ClientHeight = 50
+    ClientWidth = 617
+    TabOrder = 0
+    object btnPwrStat: TButton
+      Tag = 255
+      Left = 0
+      Height = 25
+      Top = 0
+      Width = 104
+      Caption = 'Power Status'
+      TabOrder = 0
+      OnClick = PowerClick
+    end
+    object btnKeyLkStat: TButton
+      Tag = 255
+      Left = 0
+      Height = 25
+      Top = 24
+      Width = 104
+      Caption = 'Keylock Status'
+      TabOrder = 1
+      OnClick = KeyLockClick
+    end
+    object btnPwrOn: TButton
+      Tag = 1
+      Left = 112
+      Height = 25
+      Top = 0
+      Width = 80
+      Caption = 'Power On'
+      TabOrder = 2
+      OnClick = PowerClick
+    end
+    object btnPwrOff: TButton
+      Left = 200
+      Height = 25
+      Top = 0
+      Width = 80
+      Caption = 'Power Off'
+      TabOrder = 3
+      OnClick = PowerClick
+    end
+    object btnKeyLkOn: TButton
+      Tag = 1
+      Left = 112
+      Height = 25
+      Top = 24
+      Width = 80
+      Caption = 'Keylock On'
+      TabOrder = 4
+      OnClick = KeyLockClick
+    end
+    object btnKeyLkOff: TButton
+      Left = 200
+      Height = 25
+      Top = 24
+      Width = 80
+      Caption = 'Keylock Off'
+      TabOrder = 5
+      OnClick = KeyLockClick
+    end
+    object cbChangeInput: TComboBox
+      Left = 376
+      Height = 20
+      Top = 24
+      Width = 100
+      ItemHeight = 26
+      Items.Strings = (
+        'HDMI 1'
+        'HDMI 2'
+        'HDMI 3'
+        'HDMI 4'
+      )
+      ReadOnly = True
+      Style = csDropDownList
+      TabOrder = 6
+      Text = '0'
+      OnChange = cbChangeInputChange
+    end
+    object lblChangeInput: TLabel
+      Left = 288
+      Height = 16
+      Top = 26
+      Width = 85
+      Caption = 'Change Input:'
+    end
+    object lblSetID: TLabel
+      Left = 333
+      Height = 16
+      Top = 2
+      Width = 40
+      Caption = 'Set ID:'
+    end
+    object SetID: TComboBox
+      Left = 376
+      Height = 20
+      Top = 0
+      Width = 100
+      ItemHeight = 26
+      ItemIndex = 0
+      Items.Strings = (
+        '0'
+        '1'
+        '2'
+        '3'
+        '4'
+        '5'
+        '6'
+        '7'
+        '8'
+        '9'
+      )
+      Style = csDropDownList
+      TabOrder = 7
+      Text = '0'
+    end
+    object btnVolumeZero: TButton
+      Left = 480
+      Height = 25
+      Top = 0
+      Width = 80
+      Caption = 'Volume 0%'
+      TabOrder = 8
+      OnClick = btnVolumeZeroClick
+    end
+  end
+  object DisplayLog: TMemo
+    Left = 0
+    Height = 462
+    Top = 50
+    Width = 447
+    Align = alClient
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object RemotePanel: TPanel
+    Left = 447
+    Height = 462
+    Top = 50
+    Width = 170
+    Align = alRight
+    ClientHeight = 462
+    ClientWidth = 170
+    TabOrder = 2
+    object btnRemMenu: TButton
+      Tag = 67
+      Left = 8
+      Height = 25
+      Top = 0
+      Width = 75
+      Caption = 'Menu'
+      TabOrder = 0
+      OnClick = RemoteButtonClick
+    end
+    object btnRemExit: TButton
+      Tag = 91
+      Left = 88
+      Height = 25
+      Top = 0
+      Width = 75
+      Caption = 'Exit'
+      TabOrder = 1
+      OnClick = RemoteButtonClick
+    end
+    object btnRemUp: TButton
+      Tag = 64
+      Left = 48
+      Height = 25
+      Top = 24
+      Width = 75
+      Caption = '^'
+      TabOrder = 2
+      OnClick = RemoteButtonClick
+    end
+    object btnRemLeft: TButton
+      Tag = 7
+      Left = 8
+      Height = 25
+      Top = 48
+      Width = 75
+      Caption = '<'
+      TabOrder = 3
+      OnClick = RemoteButtonClick
+    end
+    object btnRemRight: TButton
+      Tag = 6
+      Left = 88
+      Height = 25
+      Top = 48
+      Width = 75
+      Caption = '>'
+      TabOrder = 4
+      OnClick = RemoteButtonClick
+    end
+    object btnRemDown: TButton
+      Tag = 65
+      Left = 48
+      Height = 25
+      Top = 72
+      Width = 75
+      Caption = 'v'
+      TabOrder = 5
+      OnClick = RemoteButtonClick
+    end
+    object btnRemOK: TButton
+      Tag = 68
+      Left = 8
+      Height = 25
+      Top = 96
+      Width = 75
+      Caption = 'OK'
+      TabOrder = 6
+      OnClick = RemoteButtonClick
+    end
+    object btnRemBack: TButton
+      Tag = 40
+      Left = 88
+      Height = 25
+      Top = 96
+      Width = 75
+      Caption = 'Back'
+      TabOrder = 7
+      OnClick = RemoteButtonClick
+    end
+    object btnRemVolDown: TButton
+      Tag = 3
+      Left = 48
+      Height = 25
+      Top = 192
+      Width = 75
+      Caption = 'v'
+      TabOrder = 8
+      OnClick = RemoteButtonClick
+    end
+    object btnRemVolUp: TButton
+      Tag = 2
+      Left = 48
+      Height = 25
+      Top = 144
+      Width = 75
+      Caption = '^'
+      TabOrder = 9
+      OnClick = RemoteButtonClick
+    end
+    object btnRemVolMute: TButton
+      Tag = 9
+      Left = 48
+      Height = 25
+      Top = 168
+      Width = 75
+      Caption = 'Mute'
+      TabOrder = 10
+      OnClick = RemoteButtonClick
+    end
+    object btnRemAutoConfig: TButton
+      Tag = 153
+      Left = 8
+      Height = 25
+      Top = 220
+      Width = 75
+      Caption = 'Auto Config'
+      TabOrder = 11
+      OnClick = RemoteButtonClick
+    end
+    object btnRemInfo: TButton
+      Tag = 170
+      Left = 88
+      Height = 25
+      Top = 220
+      Width = 75
+      Caption = 'Info'
+      TabOrder = 12
+      OnClick = RemoteButtonClick
+    end
+    object btnRemEnterPasscode: TButton
+      Left = 8
+      Height = 25
+      Top = 120
+      Width = 152
+      Caption = 'Enter Passcode'
+      TabOrder = 13
+      OnClick = btnRemEnterPasscodeClick
+    end
+  end
+end
