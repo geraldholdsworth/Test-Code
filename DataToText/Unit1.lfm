@@ -1,0 +1,14 @@
+object Form1: TForm1
+  Left = 583
+  Height = 240
+  Top = 302
+  Width = 320
+  AllowDropFiles = True
+  Caption = 'Form1'
+  OnDropFiles = FormDropFiles
+  LCLVersion = '3.0.0.3'
+  object SaveDialog1: TSaveDialog
+    Left = 112
+    Top = 119
+  end
+end
