@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="ISOReader.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="228"/>
+      </Unit>
+      <Unit>
+        <Filename Value="MainUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="429"/>
+        <CursorPos X="49" Y="445"/>
+        <UsageCount Value="228"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Lazarus 4/lcl/interfaces/cocoa/cocoawsstdctrls.pas"/>
+        <UnitName Value="CocoaWSStdCtrls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1527"/>
+        <CursorPos Y="1535"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Lazarus 4/lcl/include/treeview.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="34"/>
+        <CursorPos Y="56"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DeCompressor/Spark.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="366"/>
+        <CursorPos X="26" Y="402"/>
+        <UsageCount Value="1"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DeCompressor/MainUnit.pas"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="71"/>
+        <CursorPos X="70" Y="91"/>
+        <UsageCount Value="1"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="403" Column="60" TopLine="375"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="411" Column="44" TopLine="375"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="262" Column="3" TopLine="203"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="391" Column="56" TopLine="377"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="418" Column="40" TopLine="388"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="420" Column="20" TopLine="388"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="419" Column="39" TopLine="398"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="406" Column="49" TopLine="378"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="416" Column="56" TopLine="383"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="384" Column="76"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="386" Column="22" TopLine="366"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="412" Column="56" TopLine="377"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="414" Column="12" TopLine="373"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="418" Column="10" TopLine="364"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="170" Column="3" TopLine="151"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="421" Column="10" TopLine="376"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="420" Column="10" TopLine="375"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="419" Column="10" TopLine="374"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="420" Column="118" TopLine="392"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="404" Column="21" TopLine="383"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="413" Column="63" TopLine="392"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="432" Column="73" TopLine="427"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="147" Column="58" TopLine="119"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="455" Column="72" TopLine="434"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="485" TopLine="461"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="200" Column="25" TopLine="180"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="23" Column="19" TopLine="2"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="392" Column="77" TopLine="368"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="462" Column="26" TopLine="424"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="356" Column="74" TopLine="324"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+  <Debugging>
+    <Watches>
+      <Item>
+        <Expression Value="line"/>
+      </Item>
+      <Item>
+        <Expression Value="nument"/>
+      </Item>
+      <Item>
+        <Expression Value="Directories[index].Entries"/>
+        <DisplayFormat ArrayNavBarInherit="False" ArrayNavBarAutoHideNavBar="False"/>
+      </Item>
+    </Watches>
+  </Debugging>
+</CONFIG>
