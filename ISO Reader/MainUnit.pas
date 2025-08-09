@@ -6,7 +6,7 @@ interface
 
 uses
  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
- StdCtrls;
+ StdCtrls, DateUtils;
 
 type
 
@@ -15,18 +15,19 @@ type
   Block   : Cardinal;
   Name    : String;
   DirRef  : Integer;
-  DateTime: String;
-  Attr    : String;
+  DateTime: TDateTime;
+  Attr    : Byte;
   Length  : Cardinal;
   Load    : Cardinal;
   Exec    : Cardinal;
-  ROAttr  : String;
+  ROAttr  : Byte;
  end;
 
  TDirectory = record
   Name   : String;
   Block  : Cardinal;
   Parent : Word;
+  Length : Cardinal;
   Entries: array of TEntry;
  end;
 
@@ -42,6 +43,8 @@ type
   PathSize    : Cardinal;
   PathTbl     : array[0..1] of Cardinal;
   oPathTbl    : array[0..1] of Cardinal;
+  RootOffset  : Cardinal;
+  RootLength  : Cardinal;
   VolSetID    : String;
   PublisID    : String;
   DataPrID    : String;
@@ -49,10 +52,10 @@ type
   CopyID      : String;
   AbstID      : String;
   BibliID     : String;
-  DateCre     : String;
-  DateMod     : String;
-  DateExp     : String;
-  DateUse     : String;
+  DateCre     : TDateTime;
+  DateMod     : TDateTime;
+  DateExp     : TDateTime;
+  DateUse     : TDateTime;
  end;
 
  { TMainForm }
@@ -69,6 +72,8 @@ type
 
 var
  MainForm: TMainForm;
+const
+ FDateFormat = 'hh:nn:ss.zzz dd/mm/yyyy';
 
 implementation
 
@@ -94,62 +99,44 @@ var
  line        : String='';
  offset      : Cardinal=0;
  Directories : array of TDirectory=();
- function GetPVDDateTime(vd,offset: Cardinal): String;
- var
-  timezone: Real=0;
-  Lindex  : Byte=0;
-  ok      : Byte=0;
+ function GetPVDDateTime(vd,offset: Cardinal): TDateTime;
  begin
-  for Lindex:=0 to 15 do if Fbuffer[vd+offset+Lindex]=$30 then inc(ok);
-  if ok<16 then
-  begin
-   Result:=chr(Fbuffer[vd+offset+ 8])//Hour
-          +chr(Fbuffer[vd+offset+ 9])
-          +':'
-          +chr(Fbuffer[vd+offset+10])//Minute
-          +chr(Fbuffer[vd+offset+11])
-          +':'
-          +chr(Fbuffer[vd+offset+12])//Second
-          +chr(Fbuffer[vd+offset+13])
-          {+'.'
-          +chr(Fbuffer[vd+offset+14])//1/100ths second
-          +chr(Fbuffer[vd+offset+15])}
-          +' '
-          +chr(Fbuffer[vd+offset+6])//Day
-          +chr(Fbuffer[vd+offset+7])
-          +'/'
-          +chr(Fbuffer[vd+offset+4])//Month
-          +chr(Fbuffer[vd+offset+5])
-          +'/'
-          +chr(Fbuffer[vd+offset  ])//Year
-          +chr(Fbuffer[vd+offset+1])
-          +chr(Fbuffer[vd+offset+2])
-          +chr(Fbuffer[vd+offset+3])
-          +' GMT';
-   timezone:=((Fbuffer[vd+offset+16]-48)*15)/60;
-   if timezone<0 then Result:=Result+FloatToStr(timezone)
-   else Result:=Result+'+'+FloatToStr(timezone);
-  end else Result:='** not specified **';
+  //Try to encode the date time
+  //We're ignoring the timezone field as this usually gets ignored anyway
+  if not TryEncodeDateTime(StrToIntDef(chr(Fbuffer[vd+offset   ])//Year
+                                      +chr(Fbuffer[vd+offset+ 1])
+                                      +chr(Fbuffer[vd+offset+ 2])
+                                      +chr(Fbuffer[vd+offset+ 3]),1900)
+                          ,StrToIntDef(chr(Fbuffer[vd+offset+ 4])//Month
+                                      +chr(Fbuffer[vd+offset+ 5]),01)
+                          ,StrToIntDef(chr(Fbuffer[vd+offset+ 6])//Day
+                                      +chr(Fbuffer[vd+offset+ 7]),01)
+                          ,StrToIntDef(chr(Fbuffer[vd+offset+ 8])//Hour
+                                      +chr(Fbuffer[vd+offset+ 9]),00)
+                          ,StrToIntDef(chr(Fbuffer[vd+offset+10])//Minute
+                                      +chr(Fbuffer[vd+offset+11]),00)
+                          ,StrToIntDef(chr(Fbuffer[vd+offset+12])//Second
+                                      +chr(Fbuffer[vd+offset+13]),00)
+                          ,StrToIntDef(chr(Fbuffer[vd+offset+14])//1/100ths second
+                                      +chr(Fbuffer[vd+offset+15])+'0',000)
+                          ,Result) then
+   //Default return value, in case we don't get a valid date time
+   Result:=EncodeDateTime(1900,01,01,00,00,00,000);
  end;
- function GetDirDateTime(vd,offset: Cardinal): String;
- var
-  timezone: Real=0;
+ function GetDirDateTime(vd,offset: Cardinal): TDateTime;
  begin
-  Result:=RightStr('00'+IntToStr(Fbuffer[vd+offset+3]),2)//Hour
-         +':'
-         +RightStr('00'+IntToStr(Fbuffer[vd+offset+4]),2)//Minute
-         +':'
-         +RightStr('00'+IntToStr(Fbuffer[vd+offset+5]),2)//Second
-         +' '
-         +RightStr('00'+IntToStr(Fbuffer[vd+offset+2]),2)//Day
-         +'/'
-         +RightStr('00'+IntToStr(Fbuffer[vd+offset+1]),2)//Month
-         +'/'
-         +IntToStr(Fbuffer[vd+offset  ]+1900)//Year
-         +' GMT';
-  timezone:=((Fbuffer[vd+offset+6]-48)*15)/60;
-  if timezone<0 then Result:=Result+FloatToStr(timezone)
-  else Result:=Result+'+'+FloatToStr(timezone);
+  //Try to encode the date time
+  //We're ignoring the timezone field as this usually gets ignored anyway
+  if not TryEncodeDateTime(Fbuffer[vd+offset  ]+1900//Year
+                          ,Fbuffer[vd+offset+1]     //Month
+                          ,Fbuffer[vd+offset+2]     //Day
+                          ,Fbuffer[vd+offset+3]     //Hour
+                          ,Fbuffer[vd+offset+4]     //Minute
+                          ,Fbuffer[vd+offset+5]     //Second
+                          ,000                      //Millisecond
+                          ,Result) then
+   //Default return value, in case we don't get a valid date time
+   Result:=EncodeDateTime(1900,01,01,00,00,00,000);
  end;
  function ReadString(vd,offset: Cardinal; length: Cardinal;
                                    blank: String='** not specified **'): String;
@@ -295,6 +282,9 @@ begin
     voldes[vdnum].PathTbl[1]:=Read32bit(voldes[vdnum].Offset,$94,True);
     //Optional m-path table at $98
     voldes[vdnum].oPathTbl[1]:=Read32bit(voldes[vdnum].Offset,$98,True);
+    //Root directory entry at $9C
+    voldes[vdnum].RootOffset:=Read32bit(voldes[vdnum].Offset,$9C+$2);
+    voldes[vdnum].RootLength:=Read32bit(voldes[vdnum].Offset,$9C+$A);
     //Volume Set Identifier at $BE
     voldes[vdnum].VolSetID:=ReadString(voldes[vdnum].Offset,$BE,128);
     //Publisher Identifier at $13E
@@ -342,6 +332,8 @@ begin
      Directories[index].Parent:=Read16bit(offset+ptr,6,pth2use=1)-1;
      //Name at offset $08
      Directories[index].Name:=ReadString(offset+ptr,8,len,'D:');
+     //Length of root is in the volume descriptor
+     if index=0 then Directories[index].Length:=voldes[vdnum].RootLength;
      if Directories[index].Parent<>index then
      begin
       offset:=Directories[index].Parent;
@@ -351,9 +343,6 @@ begin
       Directories[offset].Entries[bvd].Block   :=Directories[index].Block;
       Directories[offset].Entries[bvd].Name    :=Directories[index].Name;
       Directories[offset].Entries[bvd].DirRef  :=index;
-      Directories[offset].Entries[bvd].DateTime:=voldes[vdnum].DateCre;
-      Directories[offset].Entries[bvd].Attr    :=' D ';
-      Directories[offset].Entries[bvd].Length  :=voldes[vdnum].BlckSize;
      end;
      //Move to the next
      inc(ptr,8+len+(len mod 2));
@@ -364,7 +353,7 @@ begin
      offset:=Directories[index].Block*voldes[vdnum].BlckSize;
      ptr:=0;
      entlen:=$FF;
-     while entlen<>$0 do
+     while ptr<Directories[index].Length do//entlen<>$0 do
      begin
       //Entry size at $00
       entlen:=Fbuffer[offset+ptr];
@@ -403,11 +392,13 @@ begin
         //Length of data at $0A
         Directories[index].Entries[nument].Length:=Read32bit(offset+ptr,$0A
                                                             ,False);
+        if Directories[index].Entries[nument].DirRef<>-1 then
+         Directories[Directories[index].Entries[nument].DirRef].Length:=Directories[index].Entries[nument].Length;
         //DateTime Stamp at $12
         Directories[index].Entries[nument].DateTime:=GetDirDateTime(offset+ptr
                                                                    ,$12);
         //File Flags at $19 (already read above)
-        Directories[index].Entries[nument].Attr:=Attributes(flags);
+        Directories[index].Entries[nument].Attr:=flags;
         //Only change the next entries if not a directory
         if(flags AND $2)=0 then
         begin
@@ -425,38 +416,46 @@ begin
         begin
          Directories[index].Entries[nument].Load  :=Read32bit(offset+ptr,$2B+len);
          Directories[index].Entries[nument].Exec  :=Read32bit(offset+ptr,$2F+len);
-         Directories[index].Entries[nument].ROAttr:=ROAttributes(Read32bit(offset+ptr,$33+len));
+         Directories[index].Entries[nument].ROAttr:=Read32bit(offset+ptr,$33+len);
         end
         else
         begin
          Directories[index].Entries[nument].Load  :=0;
          Directories[index].Entries[nument].Exec  :=0;
-         Directories[index].Entries[nument].ROAttr:='';
+         Directories[index].Entries[nument].ROAttr:=0;
         end;
        end;
       end;
       //Next entry
       inc(ptr,entlen);
+      while(Fbuffer[offset+ptr]=0)and(ptr<Directories[index].Length)do inc(ptr);
      end;
     end;
    end;
   end;
   if Length(Directories)>0 then
-   {for }index:=0{ to Length(Directories)-1 do};
+   for index:=0 to Length(Directories)-1 do
    begin
-    InfoBox.Lines.Add('Files at 0x'+IntToHex(offset,8)+' for directory '+GetFullPath(index));
-    InfoBox.Lines.Add(StringOfChar('-',160));
+    DropBox.Caption:=IntToStr(Round((index/Length(Directories))*100))+'%';
+    InfoBox.Lines.Add('Directory listing for "'+GetFullPath(index)+'"'
+                     +' at 0x'+IntToHex(Directories[index].Block*voldes[vdnum].BlckSize,8)
+                     +' (0x'+IntToHex(Directories[index].Length,8)+' bytes)');
+    InfoBox.Lines.Add('|-----|----------|-----------------------|---|----------|------------------------------|----------|----------|---------|');
+    InfoBox.Lines.Add('|     |          |                       |   |          |                              |           RISC OS             |');
+    InfoBox.Lines.Add('|Index|  Length  |    Date/Time Stamp    |Atr|  Offset  |           Filename           |Load Addr |Exec Addr |Attribute|');
+    InfoBox.Lines.Add('|-----|----------|-----------------------|---|----------|------------------------------|----------|----------|---------|');
     if Length(Directories[index].Entries)>0 then
      for nument:=0 to Length(Directories[index].Entries)-1 do
-      InfoBox.Lines.Add(RightStr('000'+IntToStr(nument),3)+':'
-                       +' 0x'+IntToHex(Directories[index].Entries[nument].Length,8)
-                       +' '+Directories[index].Entries[nument].DateTime
-                       +' '+Directories[index].Entries[nument].Attr
-                       +' 0x'+IntToHex(Directories[index].Entries[nument].Block*voldes[vdnum].BlckSize,8)
-                       +' '+LeftStr(Directories[index].Entries[nument].Name+StringOfChar(' ',30),30)
-                       +' 0x'+IntToHex(Directories[index].Entries[nument].Load,8)
-                       +' 0x'+IntToHex(Directories[index].Entries[nument].Exec,8)
-                       +' '+Directories[index].Entries[nument].ROAttr);
+      InfoBox.Lines.Add('|'+RightStr('00000'+IntToStr(nument),5)
+                       +'|0x'+IntToHex(Directories[index].Entries[nument].Length,8)
+                       +'|'+FormatDateTime(FDateFormat,Directories[index].Entries[nument].DateTime)
+                       +'|'+Attributes(Directories[index].Entries[nument].Attr)
+                       +'|0x'+IntToHex(Directories[index].Entries[nument].Block*voldes[vdnum].BlckSize,8)
+                       +'|'+LeftStr(Directories[index].Entries[nument].Name+StringOfChar(' ',30),30)
+                       +'|0x'+IntToHex(Directories[index].Entries[nument].Load,8)
+                       +'|0x'+IntToHex(Directories[index].Entries[nument].Exec,8)
+                       +'|'+ROAttributes(Directories[index].Entries[nument].ROAttr)+'|');
+    InfoBox.Lines.Add('|-----|----------|-----------------------|---|----------|------------------------------|----------|----------|---------|');
     InfoBox.Lines.Add('');
     Application.ProcessMessages;
    end;

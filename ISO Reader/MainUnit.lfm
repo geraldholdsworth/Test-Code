@@ -1,29 +1,28 @@
 object MainForm: TMainForm
   Left = 357
-  Height = 579
+  Height = 578
   Top = 44
-  Width = 1011
+  Width = 1273
   AllowDropFiles = True
   Caption = 'ISO Reader'
-  ClientHeight = 579
-  ClientWidth = 1011
+  ClientHeight = 578
+  ClientWidth = 1273
   Position = poScreenCenter
-  LCLVersion = '4.0.0.4'
   OnDropFiles = FormDropFiles
   object DropBox: TPanel
     Left = 0
     Height = 50
     Top = 0
-    Width = 1011
+    Width = 1273
     Align = alTop
     Caption = 'Drop ISO file here'
     TabOrder = 0
   end
   object InfoBox: TMemo
     Left = 0
-    Height = 529
+    Height = 528
     Top = 50
-    Width = 1011
+    Width = 1273
     Align = alClient
     Font.Name = 'Courier New'
     ParentFont = False
