@@ -8,6 +8,7 @@ object MainForm: TMainForm
   ClientHeight = 578
   ClientWidth = 1273
   Position = poScreenCenter
+  LCLVersion = '4.0.0.4'
   OnDropFiles = FormDropFiles
   object DropBox: TPanel
     Left = 0
