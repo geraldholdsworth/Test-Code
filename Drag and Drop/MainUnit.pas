@@ -17,11 +17,14 @@ type
    Image3: TImage;
    Panel1: TPanel;
    procedure FormCreate(Sender: TObject);
+   procedure SetupControl(Ctrl: TImage); 
+   procedure SetupControl(Ctrl: TPanel); overload;
    procedure FormKeyPress(Sender: TObject; var Key: char);
-   procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
+   procedure ControlMouseDown(Sender: TObject; Button: TMouseButton;
     Shift: TShiftState; X, Y: Integer);
-   procedure Image1MouseMove(Sender:TObject;Shift:TShiftState;X,Y:Integer);
-   procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+   procedure ControlMouseMove(Sender:TObject;Shift:TShiftState;X,Y:Integer);
+   procedure EndDrag;
+   procedure ControlMouseUp(Sender: TObject; Button: TMouseButton;
     Shift: TShiftState; X, Y: Integer);
  private
   Fmouseisdown: Boolean;
@@ -29,6 +32,13 @@ type
   Fimg        : TPoint;
   Fdragctrl   : TControl;
   Fparent     : TWinControl;
+  FmaxscrollW : Integer;
+  FmaxscrollH : Integer;
+  const
+   //Options for dragging icons
+   ChangeParent = False; //Change of parent when control is dropped
+   MoveHorz     = True;  //Allow horizontal movement
+   MoveVert     = True;  //Allow vertical movement
  public
 
  end;
@@ -42,37 +52,48 @@ implementation
 
 { TMainForm }
 
-procedure TMainForm.Image1MouseDown(Sender: TObject; Button: TMouseButton;
+procedure TMainForm.ControlMouseDown(Sender: TObject; Button: TMouseButton;
  Shift: TShiftState; X, Y: Integer);
 begin
- //Make sure we remember which control is being dragged
- Fdragctrl:=TControl(Sender);
- //Set the flag to indicate the mouse button is pressed
- Fmouseisdown :=True;
- //Change the mouse cursor
- Fdragctrl.Cursor:=crDrag;
- //X and Y will be the position within the control of the mouse pointer
- Fstart.X     :=X;
- Fstart.Y     :=Y;
- //Make a note of the original position, within the parent control
- Fimg.X       :=Fdragctrl.Left;
- Fimg.Y       :=Fdragctrl.Top;
- Fparent      :=Fdragctrl.Parent;
- //Bring the control to the top
- Fdragctrl.BringToFront;
- //*****************************************************************************
- //NOTE: BringToFront will still keep the image behind the panel, and therefore
- //inaccessible to being clicked on.
- //
- //Possible solution: create a TPanel and make the image it's child. Then move
- //the panel around, keeping to the front, until it is placed then return it to
- //the original parent (or new parent, if required and over the top of it).
- //The Panel should be the exact same size as the Image, with no borders or
- //bevels. The image should be Left=0, Top=0.
- //*****************************************************************************
+ if not Fmouseisdown then
+ begin
+  //Make sure we remember which control is being dragged
+  Fdragctrl:=TControl(Sender);
+  //Set the flag to indicate the mouse button is pressed
+  Fmouseisdown :=True;
+  //Note the maximum work area
+  FmaxscrollW:=0;
+  FmaxscrollH:=0;
+  //Form scroll bars
+  if Fdragctrl.Parent is TForm then
+  begin
+   FmaxscrollW:=HorzScrollBar.Range;
+   FmaxscrollH:=VertScrollBar.Range;
+  end;
+  //ScrollBox scroll bars
+  if Fdragctrl.Parent is TScrollBox then
+  begin
+   FmaxscrollW:=TScrollBox(Fdragctrl.Parent).HorzScrollBar.Range;
+   FmaxscrollH:=TScrollBox(Fdragctrl.Parent).VertScrollBar.Range;
+  end;
+  //Still at zero? Then get the client area
+  if FmaxscrollW=0 then FmaxscrollW:=Fdragctrl.Parent.ClientWidth;
+  if FmaxscrollH=0 then FmaxscrollH:=Fdragctrl.Parent.ClientHeight;
+  //Change the mouse cursor
+  Fdragctrl.Cursor:=crDrag;
+  //X and Y will be the position within the control of the mouse pointer
+  Fstart.X     :=X;
+  Fstart.Y     :=Y;
+  //Make a note of the original position, within the parent control
+  Fimg.X       :=Fdragctrl.Left;
+  Fimg.Y       :=Fdragctrl.Top;
+  Fparent      :=Fdragctrl.Parent;
+  //Bring the control to the top
+  Fdragctrl.BringToFront;
+ end;
 end;
 
-procedure TMainForm.Image1MouseMove(Sender:TObject;Shift:TShiftState;X,Y:Integer);
+procedure TMainForm.ControlMouseMove(Sender:TObject;Shift:TShiftState;X,Y:Integer);
 var
  P: TPoint;
  F: TWinControl;
@@ -90,21 +111,34 @@ begin
    dec(P.Y,F.Top);
    F:=F.Parent;
   end;
+  //Adjust for the scroll position
+  if Fdragctrl.Parent is TForm then       //Form
+  begin
+   inc(P.X,HorzScrollBar.Position);
+   inc(P.Y,VertScrollBar.Position);
+  end;
+  if Fdragctrl.Parent is TScrollBox then //ScrollBox
+  begin
+   inc(P.X,TScrollBox(Fdragctrl.Parent).HorzScrollBar.Position);
+   inc(P.Y,TScrollBox(Fdragctrl.Parent).VertScrollBar.Position);
+  end;
   //Make sure the mouse isn't off the parent control
-  if P.X<0 then P.X:=0;
-  if P.Y<0 then P.Y:=0;
-  if P.X>Fdragctrl.Parent.ClientWidth  then
-   P.X:=Fdragctrl.Parent.ClientWidth;
-  if P.Y>Fdragctrl.Parent.ClientHeight then
-   P.Y:=Fdragctrl.Parent.ClientHeight;
+  if P.X-Fstart.X<0 then P.X:=Fstart.X;
+  if P.Y-Fstart.Y<0 then P.Y:=Fstart.Y;
+  if P.X-Fstart.X+Fdragctrl.Width >FmaxscrollW then P.X:=FmaxscrollW-Fstart.X;
+  if P.Y-Fstart.Y+Fdragctrl.Height>FmaxscrollH then P.Y:=FmaxscrollH-Fstart.Y;
   //Then move the control relative to where it was.
-  Fdragctrl.Left:=P.X-Fstart.X;
-  Fdragctrl.Top :=P.Y-Fstart.Y;
+  if MoveHorz then Fdragctrl.Left:=P.X-Fstart.X;
+  if MoveVert then Fdragctrl.Top :=P.Y-Fstart.Y;
+  //Move the scroll bars, if needed
+  if Fdragctrl.Parent is TForm then       //Form
+   ScrollInView(Fdragctrl)
+  else                                    //ScrollBox
+   TScrollBox(Fdragctrl.Parent).ScrollInView(Fdragctrl);
  end;
 end;
 
-procedure TMainForm.Image1MouseUp(Sender: TObject; Button: TMouseButton;
- Shift: TShiftState; X, Y: Integer);
+procedure TMainForm.EndDrag;
 var
  F: TControl;
 begin
@@ -114,23 +148,59 @@ begin
  Fdragctrl.Cursor:=crDefault;
 end;
 
+procedure TMainForm.ControlMouseUp(Sender: TObject; Button: TMouseButton;
+ Shift: TShiftState; X, Y: Integer);
+var
+ F,P: TWinControl; //Only TWinControl can have children
+begin
+ EndDrag;
+ //Change of parent?
+ if ChangeParent then
+ begin
+  Fdragctrl.Visible:=False; //Making the control invisible means it won't find itself
+  F:=ControlAtPos(ScreenToClient(Mouse.CursorPos),
+                  [capfAllowWinControls,capfOnlyWinControls]) as TWinControl;
+  Fdragctrl.Visible:=True;
+  //Do we have a control, that isn't already the control's parent?
+  if(F<>nil)and(F<>Fdragctrl.Parent)then
+  begin
+   //Make it the parent
+   P:=Fdragctrl.Parent;
+   Fdragctrl.Parent:=F;
+   //Compensate the position for the parent's position
+   while F<>P do
+   begin
+    Fdragctrl.Left:=Fdragctrl.Left-F.Left;
+    Fdragctrl.Top :=Fdragctrl.Top -F.Top;
+    F:=F.Parent;
+   end;
+  end;
+ end;
+end;
+
+//We can't use TObject as the three events are protected.
+procedure TMainForm.SetupControl(Ctrl: Timage);
+begin
+ Ctrl.OnMouseDown:=@ControlMouseDown;
+ Ctrl.OnMouseMove:=@ControlMouseMove;
+ Ctrl.OnMouseUp  :=@ControlMouseUp;
+end;
+procedure TMainForm.SetupControl(Ctrl: TPanel);
+begin
+ Ctrl.OnMouseDown:=@ControlMouseDown;
+ Ctrl.OnMouseMove:=@ControlMouseMove;
+ Ctrl.OnMouseUp  :=@ControlMouseUp;
+end;
+
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
  //Set the intial state of the mouse down flag
  Fmouseisdown:=False;
  //Set the events
- Image1.OnMouseDown:=@Image1MouseDown;
- Image1.OnMouseMove:=@Image1MouseMove;
- Image1.OnMouseUp  :=@Image1MouseUp;
- Image2.OnMouseDown:=@Image1MouseDown;
- Image2.OnMouseMove:=@Image1MouseMove;
- Image2.OnMouseUp  :=@Image1MouseUp;
- Image3.OnMouseDown:=@Image1MouseDown;
- Image3.OnMouseMove:=@Image1MouseMove;
- Image3.OnMouseUp  :=@Image1MouseUp;
- Panel1.OnMouseDown:=@Image1MouseDown;
- Panel1.OnMouseMove:=@Image1MouseMove;
- Panel1.OnMouseUp  :=@Image1MouseUp;
+ SetupControl(Image1);
+ SetupControl(Image2);
+ SetupControl(Image3);
+ SetupControl(Panel1);
 end;
 
 procedure TMainForm.FormKeyPress(Sender: TObject; var Key: char);
@@ -138,14 +208,12 @@ begin
  if Fmouseisdown then
   if Key=#27 then //Pressing ESCAPE stops the drag operation
   begin
-   //Reset the flag
-   Fmouseisdown :=False;
-   //And change the mouse cursor back
-   Fdragctrl.Cursor:=crDefault;
+   EndDrag;
    //Put the control back where it started
    Fdragctrl.Left  :=Fimg.X;
    Fdragctrl.Top   :=Fimg.Y;
    Fdragctrl.Parent:=Fparent;
+   Key:=#0;
   end;
 end;
 

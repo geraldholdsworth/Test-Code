@@ -150,9 +150,6 @@ object MainForm: TMainForm
       67D622B3528F63AB55041934E828DE02CA2B1D9AE6FE0769E0BCC1F317AD8700
       00000049454E44AE426082
     }
-    OnMouseDown = Image1MouseDown
-    OnMouseMove = Image1MouseMove
-    OnMouseUp = Image1MouseUp
   end
   object Image2: TImage
     Left = 680
