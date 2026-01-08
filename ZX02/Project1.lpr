@@ -7,103 +7,98 @@ uses
  cthreads,
  {$ENDIF}
  Classes,
-  SysUtils
+ SysUtils
  { you can add units after this };
 
 type
   TByteArray = array of Byte;
 
 function ZX02Decompress(compressed: TByteArray;start: Cardinal=0): TByteArray;
-//Translated from the 6502 code as used in Repton 3 : Redux
+//Translated from the 6502 code as used in Repton 3 Redux
 //Thank you to Matthew Atkinson for the source code
 //See also: https://github.com/dmsc/zx02
 var
- A           : Word=0;  //We could just use Byte, but we need 9 bits
- X           : Word=0;
- Y           : Word=0;
- bitr        : Word=$80;
- C           : Byte=0;
- inptr       : Cardinal=0;
- outptr      : Cardinal=0;
- offset      : Cardinal=0;
- pointer     : Cardinal=0;
- //Arithmetic shift left C<-b<-0
- procedure ASL(var b: Word);
+ A      : Word=0;
+ X      : Byte=0;
+ bitr   : Word=$80;
+ C      : Byte=0;
+ inptr  : Cardinal=0;
+ outptr : Cardinal=0;
+ //Arithmetic shift left C<-A<-0
+ procedure ASL;
  begin
-  b:=b<<1;
-  C:=b div $100;
-  b:=b mod $100;
+  bitr:=bitr<<1;
+  C   :=bitr div $100;
+  bitr:=bitr mod $100;
  end;
- //Logical shift right 0->b->C
- procedure LSR(var b: Word);
+ //Rotate left one bit C<-A<-C
+ procedure ROL;
  begin
-  b:=b mod $100;
-  C:=b AND 1;
-  b:=b>>1;
+  A:=(A<<1)OR C;
+  C:=A div $100;
+  A:=A mod $100;
  end;
- //Rotate left one bit C<-b<-C
- procedure ROL(var b: Word);
+ //Get the next byte from the compressed stream, and update the pointer
+ function GetByte: Boolean;
  begin
-  b:=(b<<1)OR C;
-  C:=b div $100;
-  b:=b mod $100;
- end;
- //Get the next byte from the compressed stream
- function get_byte: Word;
- begin
-  Result:=$FF00;
-  if inptr<Length(compressed) then
+  if inptr<Length(compressed)then
   begin
-   Result:=compressed[inptr];
+   A:=compressed[inptr]mod$100;               //Ensure it is 8 bits
    inc(inptr);
+   Result:=True;
+  end
+  else
+  begin
+   A:=$FF00;                                  //>$FF Indicates error condition
+   Result:=False;
   end;
  end;
  //Put a byte into the next location in the decompressed stream
- procedure save_byte(b: Word);
+ procedure SaveByte(b: Word);
  begin
-  if outptr>=Length(Result) then SetLength(Result,outptr+1);
-  Result[outptr]:=b mod $100;
+  if outptr>=Length(Result)then SetLength(Result,outptr+1);
+  Result[outptr]:=b mod$100;                  //b should not be more than $FF
   inc(outptr);
  end;
  //Get an encoded elias number
- function get_elias: Boolean;
- label
-   elias_start, elias_get, elias_skip1;
+ function GetElias: Boolean;
+ var
+  Lfirst: Boolean=True;
  begin
-   Result:=True;
-   X     :=1;
-   goto elias_start;
-
-  elias_get:
-   A:=X;
-   ASL(bitr);
-   ROL(A);
-   X:=A;
-
-  elias_start:
-   ASL(bitr);
-   if bitr<>0 then goto elias_skip1;
-   A   :=get_byte;
-   if A>$FF then
+  X     :=1;
+  Lfirst:=True;
+  repeat
+   if not Lfirst then
    begin
-    Result:=False;
-    exit;
+    A:=X mod$100;
+    ASL;
+    ROL;
+    X:=A;
    end;
-   ROL(A);
-   bitr:=A;
-
-  elias_skip1:
-   if C=1 then goto elias_get;
+   Lfirst:=False;
+   ASL;
+   if bitr=0 then
+    if GetByte then
+    begin
+     ROL;
+     bitr:=A;
+    end;
+  until(C=0)or(A>$FF);
+  Result:=A<$100;                             //Error state
  end;
-label
-  decode_literal, dzx0s_new_offset, dzx0s_copy;
 //Function body starts here
+var
+ action : String='decode_literal';
+ Y      : Byte=0;
+ offset : Cardinal=0;
+ pointer: Cardinal=0;
 begin
- A     :=0;    //Accumulator
- X     :=0;    //X register
- Y     :=0;    //Y register
- C     :=0;    //C flag (carry)
- bitr  :=$80;
+ //Initialise
+ A   :=0;  //Accumulator
+ X   :=0;  //X register
+ Y   :=0;  //Y register
+ C   :=0;  //C flag (carry)
+ bitr:=$80;
  //A starting position other than zero has been specified.
  if start>0 then //Copy the uncompressed data across first
  begin
@@ -121,60 +116,71 @@ begin
   outptr:=$0;
  end;
  //Start the decompression
- decode_literal:
-  if not get_elias then exit;
-  while X<>0 do
+ repeat
+  //No compression - just copy from src to dest
+  if action='decode_literal' then
   begin
-   A:=get_byte;
-   if A>$FF then exit;
-   save_byte(A);
-   dec(X);
+   if not GetElias then exit(nil);            //Error
+   while X<>0 do
+   begin
+    if not GetByte then exit(nil);            //Error
+    SaveByte(A);
+    dec(X);
+   end;
+   ASL;
+   if C=1 then action:='get_new_offset'
+   else
+   begin
+    if not GetElias then exit(nil);           //Error
+    action:='copybytes';
+   end;
   end;
-  ASL(bitr);
-  if C=1 then goto dzx0s_new_offset;
-  if not get_elias then exit;
-
- dzx0s_copy:
-  A:=outptr-offset-(1-C);
-  if C<0 then C:=0 else C:=1;
-  pointer:=A;
-  while X<>0 do
+  //Copy a series of bytes N number of times
+  if action='copybytes' then
   begin
-   if pointer<Length(Result) then A:=Result[pointer] else exit;
-   inc(pointer);
-   save_byte(A);
-   dec(X);
+   pointer:=(outptr-offset-(1-C));
+   while X<>0 do
+   begin
+    if pointer>=Length(Result) then exit(nil);//Error
+    SaveByte(Result[pointer]);
+    inc(pointer);
+    dec(X);
+   end;
+   ASL;
+   if C=0 then action:='decode_literal' else action:='get_new_offset';
   end;
-  ASL(bitr);
-  if C=0 then goto decode_literal;
-
- dzx0s_new_offset:
-  offset:=(offset mod $100)OR Y<<8;
-  A:=get_byte;
-  if A>$FF then exit;
-  LSR(A);
-  if C=1 then
+  //Get new offset
+  if action='get_new_offset' then
   begin
-   if A=$7F then exit;
-   offset:=(offset mod $100)OR A<<8;
-   A:=get_byte;
-   if A>$FF then exit;
+   offset:=(offset mod $100)OR Y<<8;
+   if not GetByte then exit(nil);             //Error
+   A:=A mod $100;
+   C:=A AND 1;
+   A:=A>>1;
+   if C=1 then
+   begin
+    if A=$7F then exit;//Reached the end of the compressed data
+    offset:=(offset mod $100)OR A<<8;
+    if not GetByte then exit(nil);            //Error
+   end;
+   offset:=(offset AND $FF00)OR A;
+   if not GetElias then exit(nil);            //Error
+   inc(X);
+   X:=X mod $100;
+   if C=0 then action:='copybytes' else action:='';
   end;
-  offset:=(offset AND $FF00)OR A;
-  if not get_elias then exit;
-  inc(X);
-  X:=X mod $100;
-  if C=0 then goto dzx0s_copy;
+ until action='';
+ if A<>$7F then SetLength(Result,0);          //Error
 end;
 
+//Main program +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 var
- decompressed: array of Byte=();
- compressed  : array of Byte=();
+ decompressed: TByteArray=();
+ compressed  : TByteArray=();
  F           : TFileStream=nil;
  filename    : String='';
  outputfile  : String='';
  startofdata : Cardinal=0;
-
 begin
  //Get the file specified
  filename  :=ParamStr(1);
@@ -183,7 +189,7 @@ begin
  //Starting point
  startofdata:=StrToIntDef('$'+ParamStr(3),0);
  //If no output file specified, then make our own
- if outputfile='' then outputfile:=ExtractFilePath(filename)+'output';
+ if outputfile='' then outputfile:=ExtractFilePath(filename)+'-decompressed';
  //If no input file, can't do any decompression
  if filename<>'' then
   //Needs to exist too
@@ -195,20 +201,19 @@ begin
     SetLength(compressed,F.Size);
     F.Read(compressed[0],F.Size);
     F.Free;
-   except
+   except //File error has occurred.
     on E:Exception do WriteLn(#13#10#$1B'[91m'#$1B'[1mError: '+E.Message
                              +#$1B'[0m');
    end;
    //Decompress the data
    decompressed:=ZX02Decompress(compressed,startofdata);
-   //Was it a success?
-   if Length(decompressed)<Length(compressed) then
+   //Display the result
+   if Length(decompressed)<Length(compressed) then //Was it a success?
     WriteLn(#13#10#$1B'[91m'#$1B'[1m'
            +'Decompression failed. Likely reason: not a valid ZX02 file.'
-           +#$1B'[0m')
+           +#$1B'[0m') //No
    else
-   begin
-    //Display the output
+   begin //Yes
     WriteLn(#13#10#$1B'[92m'#$1B'[1mDecompression success.'+#$1B'[0m');
     WriteLn(#$1B'[1mCompressed length  :'
            +#$1B'[93m 0x'+IntToHex(Length(compressed)  ,4)+#$1B'[0m');
@@ -219,11 +224,11 @@ begin
      F:=TFileStream.Create(outputfile,fmCreate or fmShareDenyNone);
      F.Write(decompressed[0],Length(decompressed));
      F.Free;
-    except
+    except //File error has occurred.
      on E:Exception do WriteLn(#13#10#$1B'[91m'#$1B'[1mError: '+E.Message
                               +#$1B'[0m');
     end;
-   end;
+   end; //Errors due to wrong input
   end else WriteLn(#13#10#$1B'[91m'#$1B'[1mFile "'+filename+'" does not exist.'
                   +#$1B'[0m')
  else WriteLn(#13#10#$1B'[93m'#$1B'[1m'
