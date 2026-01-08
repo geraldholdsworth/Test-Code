@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="Project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="41" Y="19"/>
+        <UsageCount Value="43"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DiscImageManager/ConsoleAppUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="57"/>
+        <CursorPos X="25" Y="70"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DeCompressor/Spark.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="593"/>
+        <CursorPos X="64" Y="608"/>
+        <UsageCount Value="9"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="55" Column="64" TopLine="32"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="59" Column="50" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="141" Column="10" TopLine="114"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="62" Column="69" TopLine="39"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="132" Column="3" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="136" Column="23" TopLine="113"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="149" Column="30" TopLine="113"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="161" Column="22" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="141" Column="16" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="90" Column="29" TopLine="61"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="106" Column="16" TopLine="69"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="125" Column="7" TopLine="83"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="134" Column="35" TopLine="96"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="145" Column="33" TopLine="108"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="155" Column="96" TopLine="116"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="27" Column="28" TopLine="2"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="104" Column="21" TopLine="81"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="29" Column="26"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="108" Column="36" TopLine="85"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="102" Column="32" TopLine="66"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="16" Column="47"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="14" Column="15"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="70" Column="20" TopLine="47"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="71" Column="8" TopLine="48"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="103" Column="2" TopLine="81"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="162" TopLine="147"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="58" Column="6" TopLine="41"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="85" Column="10" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="26" Column="30" TopLine="9"/>
+      </Position>
+      <Position>
+        <Filename Value="Project1.lpr"/>
+        <Caret Line="56" Column="4" TopLine="34"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
