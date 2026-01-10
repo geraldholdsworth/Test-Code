@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="Decompress.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="5"/>
+        <CursorPos X="69" Y="87"/>
+        <UsageCount Value="58"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DiscImageManager/ConsoleAppUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="57"/>
+        <CursorPos X="25" Y="70"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DeCompressor/Spark.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="593"/>
+        <CursorPos X="64" Y="608"/>
+        <UsageCount Value="7"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Notes/compress.c"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="71"/>
+        <CursorPos X="161" Y="81"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="C_2B_2B"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="-1"/>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode="default">
+        <Mode Name="default"/>
+      </Modes>
+    </RunParams>
+    <HistoryLists>
+      <List Name="WorkingDirectory" Type="File" Count="1"/>
+      <List Name="LaunchingApplication" Type="File" Count="1"/>
+      <List Name="CommandLineParameters" Count="3">
+        <Item2 Value="&apos;/Users/geraldholdsworth/Library/Mobile Documents/com~apple~CloudDocs/Programming/Lazarus/Old and Test Projects/ZX02/TestFiles/prelude &apos;/Users/geraldholdsworth/Library/Mobile Documents/com~apple~CloudDocs/Programming/Lazarus/Old and Test Projects/ZX02/TestFiles/prelude-big 180"/>
+        <Item3 Value="TestFiles/prelude prelude-big 180"/>
+      </List>
+    </HistoryLists>
+  </ProjectSession>
+</CONFIG>
