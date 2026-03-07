@@ -1,0 +1,32 @@
+object MainForm: TMainForm
+  Left = 0
+  Height = 2000
+  Top = 0
+  Width = 640
+  AllowDropFiles = True
+  Caption = 'DSK Reader 2'
+  ClientHeight = 2000
+  ClientWidth = 640
+  LCLVersion = '4.4.0.0'
+  OnDropFiles = FormDropFiles
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 640
+    Align = alTop
+    TabOrder = 0
+  end
+  object Memo1: TMemo
+    Left = 0
+    Height = 1950
+    Top = 50
+    Width = 640
+    Align = alClient
+    Font.Name = 'Courier New'
+    ParentFont = False
+    ReadOnly = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+end

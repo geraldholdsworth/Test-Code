@@ -1,0 +1,131 @@
+AMS DOS Format (Amstrad or Sinclair +3)
+
+Offset 0x0000 to 0x00FF : Disc Information Block
+
+Offset	Length	Description
+0x00	0x21	ID: "MV - CPCEMU" or "EXTENDED CPC DSK" (including some spurious data)
+0x22	0x0D	Name of Creator
+0x30	0x01	Number of tracks per side
+0x31	0x01	Number of sides (1 or 2)
+0x32	0x02	Size of each track (standard DSK only, ignored for extended)
+0x34	0xCB	Size of each track (extended DSK, ignored for standard)
+
+Offset 0x0100 onwards: Tracks, interleaved (if double sided)
+I.e. Track 0, Side 1; Track 0, Side 2; Track 1, Side 1; Track 1, Side 2; etc.
+
+For each track:
+Offset 0x0000 to 0x00FF : Track Information Block
+
+Offset	Length	Description
+0x00	0x0B	"Track-Info\r\n"
+0x0C	0x04	Unused, safely ignored
+0x10	0x01	Track number
+0x11	0x01	Side number
+0x12	0x02	Unused, safely ignored
+0x14	0x01	Sector size (high byte)
+0x15	0x01	Number of sectors in this track
+0x16	0x01	GAP#3 length
+0x17	0x01	Filler byte
+0x18	xx	Sector Information List, as follows:
+
+Offset	Length	Description
+0x00	0x01	Track number
+0x01	0x01	Side number
+0x02	0x01	Sector ID
+0x03	0x01	Sector size (high byte)
+0x04	0x01	FDC status register 1
+0x05	0x01	FDC status register 2
+0x06	0x02	Actual data length (extended DSK, ignored for standard)
+
+Sectors are then from offset 0x100 into the track...i.e., after the Track Information Block. Note that the sectors may be stored interleaved (e.g. 1,6,2,7,3,8,4,9,5) - keep an eye on the sector ID.
+
+The directory entries (boot blocks) are usually on the first logical sector of the disc. So, we look at Sector 0, Track 0. If they are not there, then try Sector 0, Track 1, then Sector 0, Track 2, and so forth. Sometimes the Sector ID may give it away, so best to look at Sector 0, Track 0:
+
+Sector ID	DSK Type	Directory location
+0x01		IBM		Track 1, Side 1
+0x41		VENDOR		Track 2, Side 1
+0xB1		UNKNOWN
+0xC1		DATA		Track 0, Side 1
+
+But, this is not always the case.
+
+Amstrad CPC and Sinclair +3 discs were generally "flippys", in that one disk was effectively two disks, each side having data on it but the user needed to eject the disk, flip it, and re-insert it. Therefore, double sided images are the same. So, beware to look for more than one boot block, particularly on a double sided disk.
+
+Double sided disks with a continuous data area was rare, but there are DSK images that exist in this format and, hence, only have the single boot block serving both sides.
+
+File entries
+
+Offset	Length	Description
+0x00	0x01	User number, between 0 and 15. 0xE5 marks a deleted entry.
+0x01	0x0B	Filename, including extension but no period. Padded with 0x20. These bytes will always be between 0x20 and 0x7F.
+		Byte 0x08, top bit set = Read Only
+		Byte 0x09, top bit set = Hidden or System
+		Byte 0x0A, top bit set = Archive
+0x0C	0x01	Current Extent (0 or 0xE5 is first) - used for files > 16256
+		Maximum file length is 65535, meaning the highest this will be is 4.
+		0xE5 can mark a deleted entry.
+0x0D	0x01	Reserved
+0x0E	0x01	Extent high byte (not used)
+0x0F	0x01	Record count - number of 128-byte blocks
+0x10	0x10	Cluster IDs (terminated by 0x00 or 0x0000, to a maximum of 16 or 8)
+
+When there are less than 256 1K blocks in a data area, the Cluster IDs will be single bytes each (8 bits), terminated by 0x00 and a maximum of 16. However, when the number of 1K blocks exceeds 256, then the Cluster IDs will be two bytes (16 bits), stored little endian, and 0x0000 will be the terminator, and a maximum of 8.
+
+A data area is defined as the total capacity of the area, not including the boot tracks but including the directory entry blocks.
+
+Clusters
+Data appears on two consecutive sectors. That is, a cluster is 1024 bytes (0x400) in size, but sectors are 512 bytes (0x200) in size, and the directory entry reports the number of 128-byte blocks (so up to 8 128-byte blocks per cluster).
+First is:
+Track        = (Cluster * 2) DIV NumberSectors
+SectorOffset = (Cluster * 2) MOD NumberSectors
+
+Disc Format will be either 0xC1, 0xB1, 0x41 or 0x01 (Sector ID, see above). This needs to be added to the sector number:
+
+Sector = SectorOffset + DiscFormat
+
+Second sector will therefore be:
+Track        = ((Cluster * 2)+1) DIV NumberSectors
+SectorOffset = ((Cluster * 2)+1) MOD NumberSectors
+Sector       = SectorOffset + DiscFormat
+
+You will also need to take into account the side of where the boot block is, as cluster IDs on two separate blocks may have the same ID.
+
+Files may be stored with headers and a terminating byte. To determine if there is a header, add the first 67 bytes (00 to 66 inclusive) and compared this number to the value stored in offset 67 and 68. If there is a match, then there is a header. Note that the header is 128 bytes in size. The value of 0x1A terminates the file.
+
+SOFT968 header
+
+First 64 bytes are the same as the cassette header.
+
+Offset	Length	Description
+0x00	0x01	User number
+0x01	0x0F	Filename (8 bytes) padded with 0x20
+		Type (3 bytes) padded with 0x20
+		0x00 0x00 0x00 0x00
+0x10	0x01	Block number (not used - set to 0x00)
+0x11	0x01	Last block (not used - set to 0x00)
+0x12	0x01	File type
+		Bit 0 : Protection
+		Bit 1..3 : File contents: 2 Screen image; 3 ASCII; 4-7 unallocated
+		Bit 4..7 : Version: ASCII should be 1, everything else 0
+0x13	0x02	Data length - number of data bytes in the record
+0x15	0x02	Data location (where it was originally written from)
+0x17	0x01	First block (not used): 0xFF or 0x00
+0x18	0x02	Logical length, not excluding the header
+0x1A	0x02	Entry address - execution address
+0x1C	0x24	Unallocated
+0x40	0x03	Length of file in bytes, excluding the header
+0x43	0x02	Checksum on first 0x42 bytes - sum of first 0x43 bytes
+0x45	0x3B	Undefined
+0x80	xxx	Data
+
+PLUS3DOS header
+
+Offset	Length	Description
+0x00	0x08	"PLUS3DOS"
+0x08	0x01	0x1A Soft-EOF (end of file)
+0x09	0x01	Issue number
+0x0A	0x01	Version number
+0x0B	0x04	Length of the file in bytes, 32 bit number, least significant byte in lowest address
+0x0F	0x08	+3 BASIC header data
+0x17	0x68	Reserved (set to 0)
+0x7F	0x01	Checksum - sum of first 0x7F bytes, lower byte stored
