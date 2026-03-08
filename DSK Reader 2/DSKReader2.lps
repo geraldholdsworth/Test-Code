@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
         <CursorPos X="3" Y="12"/>
-        <UsageCount Value="57"/>
+        <UsageCount Value="67"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -19,9 +19,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="242"/>
-        <CursorPos X="70" Y="265"/>
-        <UsageCount Value="57"/>
+        <TopLine Value="375"/>
+        <CursorPos X="14" Y="390"/>
+        <UsageCount Value="67"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -30,7 +30,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="401"/>
         <CursorPos X="23" Y="429"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../../../Lazarus 4.4/lcl/interfaces/cocoa/cocoawsstdctrls.pas"/>
@@ -38,7 +38,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1547"/>
         <CursorPos Y="1570"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../../../Lazarus 4.4/lcl/lclrescache.pas"/>
@@ -46,7 +46,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="202"/>
         <CursorPos Y="225"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="../DFSFileCleaver/SplitDFSUnit.pas"/>
@@ -55,88 +55,24 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="330"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="../DSK Reader/filesystem.pas"/>
         <UnitName Value="FileSystem"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="173"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../DSK Reader/DskImage.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1798"/>
         <CursorPos X="14" Y="1819"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="261" Column="55" TopLine="231"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="32" Column="23"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="263" Column="56" TopLine="227"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="209" Column="39" TopLine="189"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="255" Column="55" TopLine="213"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="13" Column="9"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="38" Column="32" TopLine="30"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="93" Column="50" TopLine="83"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="10" TopLine="9"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="25" Column="6" TopLine="3"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="88" Column="21" TopLine="58"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="259" Column="84" TopLine="237"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="154" Column="45" TopLine="126"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="151" Column="51" TopLine="130"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="150" Column="38" TopLine="135"/>
-      </Position>
-      <Position>
-        <Filename Value="MainUnit.pas"/>
-        <Caret Line="144" Column="36" TopLine="136"/>
-      </Position>
       <Position>
         <Filename Value="MainUnit.pas"/>
         <Caret Line="304" Column="2" TopLine="95"/>
@@ -193,6 +129,70 @@
         <Filename Value="MainUnit.pas"/>
         <Caret Line="309" Column="2" TopLine="296"/>
       </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="48" Column="20" TopLine="40"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="126" TopLine="96"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="49" Column="62" TopLine="29"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="121" Column="19" TopLine="104"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="120" Column="29" TopLine="91"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="121" Column="29" TopLine="99"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="315" Column="52" TopLine="292"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="114" Column="4" TopLine="98"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="316" Column="86" TopLine="287"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="381" Column="61" TopLine="359"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="62" Column="17" TopLine="33"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="91" Column="24" TopLine="69"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="56" Column="17" TopLine="37"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="249" Column="40" TopLine="231"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="250" Column="77" TopLine="229"/>
+      </Position>
+      <Position>
+        <Filename Value="MainUnit.pas"/>
+        <Caret Line="394" Column="55" TopLine="363"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
@@ -202,11 +202,24 @@
   <Debugging>
     <Watches>
       <Item>
-        <Expression Value="DirTrack"/>
+        <Expression Value="D1"/>
+        <DisplayFormat NumInherit="False" Num="vdfBaseHex"/>
       </Item>
       <Item>
-        <Expression Value="Tracks"/>
-        <DisplayFormat ArrayNavBarInherit="False"/>
+        <Expression Value="D2"/>
+        <DisplayFormat NumInherit="False" Num="vdfBaseHex"/>
+      </Item>
+      <Item>
+        <Expression Value="Ctr"/>
+        <DisplayFormat NumInherit="False" Num="vdfBaseHex"/>
+      </Item>
+      <Item>
+        <Expression Value="Ptr"/>
+        <DisplayFormat NumInherit="False" Num="vdfBaseHex"/>
+      </Item>
+      <Item>
+        <Expression Value="D3"/>
+        <DisplayFormat NumInherit="False" Num="vdfBaseHex"/>
       </Item>
     </Watches>
   </Debugging>

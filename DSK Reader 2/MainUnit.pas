@@ -25,6 +25,7 @@ type
   BootSize  : Byte;
   Valid     : Boolean;
  end;
+ THeaderType = (diNone,diSOFT968,diPLUS3DOS,diOther);
  TFiles = record
   UserNumber: Byte;
   Filename  : String;
@@ -36,6 +37,7 @@ type
   Length    : Cardinal;
   Clusters  : array of Word;
   Side      : Byte;
+  HeaderType: THeaderType;
  end;
 
   { TMainForm }
@@ -45,12 +47,14 @@ type
    Memo1: TMemo;
    function GetDSKOffset(Cluster: Word;Side: Byte;First: Boolean=True): Cardinal;
    function CheckForBoot(Ptr: Cardinal; LData: array of Byte): Boolean;
+   function GetHeaderType(Ptr: Cardinal; LData: array of Byte): THeaderType;
    function ReadFile(LData: array of Byte): Boolean;
    procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
   private
    FData      : array of Byte;
    DSKForm    : String;
    Creator    : String;
+   Reserved   : array[0..1] of Integer;
    NumTracks  : Word;
    Sides      : Byte;
    Tracks     : array of TTrack;
@@ -83,7 +87,8 @@ begin
  LTrack :=((Cluster*2)+F)DIV Length(Tracks[0].Sectors);
  LTrack :=LTrack+(NumTracks*Side);
  LSector:=((Cluster*2)+F)MOD Length(Tracks[0].Sectors);
- Result:=Tracks[LTrack].Sectors[LSector].Offset;
+ Result:=Tracks[LTrack].Sectors[LSector].Offset
+        +Reserved[Side]*Tracks[0].Size;
 end;
 
 function TMainForm.CheckForBoot(Ptr: Cardinal; LData: array of Byte): Boolean;
@@ -95,6 +100,34 @@ begin
  if Result then
   for LI:=$1 to $8 do
    Result:=(Result)and(LData[Ptr+LI]>$1F)and(LData[Ptr+LI]<$80);
+end;
+
+function TMainForm.GetHeaderType(Ptr: Cardinal; LData: array of Byte): THeaderType;
+var
+ Index: Integer=0;
+ Ctr  : Word=0;
+begin
+ Result:=diNone;
+ Ctr:=0;
+ for Index:=0 to $42 do
+  inc(Ctr,LData[Ptr+Index]);
+ if Ctr=LData[Ptr+$43]+LData[Ptr+$44]<<8 then Result:=diSOFT968
+ else
+  if (LData[Ptr  ]=Ord('P'))
+  and(LData[Ptr+1]=Ord('L'))
+  and(LData[Ptr+2]=Ord('U'))
+  and(LData[Ptr+3]=Ord('S'))
+  and(LData[Ptr+4]=Ord('3'))
+  and(LData[Ptr+5]=Ord('D'))
+  and(LData[Ptr+6]=Ord('O'))
+  and(LData[Ptr+7]=Ord('S'))
+  and(LData[Ptr+8]=$1A)then
+  begin
+   Ctr:=0;
+   for Index:=0 to $7E do
+    inc(Ctr,LData[Ptr+Index]);
+   if(Ctr AND $FF)=LData[Ptr+$7F] then Result:=diPLUS3DOS
+  end;
 end;
 
 function TMainForm.ReadFile(LData: array of Byte): Boolean;
@@ -111,6 +144,10 @@ var
  Temp     : TFiles=();
 begin
  Result:=False;
+ SetLength(Files,0);
+ SetLength(Tracks,0);
+ Reserved[0]:=-1;
+ Reserved[1]:=-1;
  //Check that the image is actually big enough for the header and first track info
  if Length(LData)>512 then
  begin
@@ -209,6 +246,8 @@ begin
     begin
      if Tracks[DirTrack].Boot then
      begin
+      if Reserved[Tracks[DirTrack].Side]=-1 then
+       Reserved[Tracks[DirTrack].Side]:=DirTrack-NumTracks*Tracks[DirTrack].Side;
       //Where are we?
       Ptr:=Tracks[DirTrack].Sectors[DirSector].Offset;
       DirSector:=0; //Sector counter
@@ -278,6 +317,10 @@ begin
         //Next entry
         inc(Index,S+1);
        end;
+       if Length(Files[Index1].Clusters)>0 then
+        Files[Index1].HeaderType:=GetHeaderType(GetDSKOffset(Files[Index1].Clusters[0]
+                                                            ,Files[Index1].Side)
+                                               ,LData);
        //Next file
        Inc(Ptr,$20);
        //End of sector?
@@ -334,12 +377,22 @@ begin
   Memo1.Lines.Add('Creator             : '+Creator);
   Memo1.Lines.Add('Tracks per side     : '+IntToStr(NumTracks));
   Memo1.Lines.Add('Sides               : '+IntToStr(Sides));
+  if Sides=1 then
+   Memo1.Lines.Add('Reserved tracks     : '+IntToStr(Reserved[Index]))
+  else
+  begin
+   Memo1.Lines.Add('Reserved tracks (1) : '+IntToStr(Reserved[0]));
+   Memo1.Lines.Add('Reserved tracks (2) : '+IntToStr(Reserved[1]));
+  end;
   Memo1.Lines.Add('Calculated:');
   Memo1.Lines.Add('Total Capacity      : '+IntToStr(Capacity)+' bytes');
   Memo1.Lines.Add('Used space          : '+IntToStr(Used)+' bytes');
   C:=Capacity-(Length(Tracks)*$100);
   for Index:=0 to Length(Tracks) do
-   if Tracks[Index].Boot then dec(C,Tracks[Index].BootSize*Tracks[Index].Size);
+   if Tracks[Index].Boot then
+    dec(C,Tracks[Index].BootSize*Tracks[Index].Sectors[0].Size);
+  if Reserved[0]>=0 then dec(C,Tracks[0].Size);
+  if Reserved[1]>=0 then dec(C,Tracks[NumTracks].Size);
   Memo1.Lines.Add('Total usable space  : '+IntToStr(C)+' bytes');
   Memo1.Lines.Add('Boot Blocks         : '+IntToStr(DataAreas));
   Memo1.Lines.Add('Capacity per area   : '+IntToStr(Capacity div DataAreas)+' bytes');
@@ -386,21 +439,28 @@ begin
   Memo1.Lines.Add(StringOfChar('*',40));
   Memo1.Lines.Add('Files');
   Memo1.Lines.Add('=====');
-  Memo1.Lines.Add('Side|User|Filename    |Attributes|Length|Clusters');
-  Memo1.Lines.Add('----|----|------------|----------|------|--------------------------------');
+  Memo1.Lines.Add('Side|User|Filename    |Attributes|Length|Header|Clusters');
+  Memo1.Lines.Add('----|----|------------|----------|------|------|--------------------------------');
   for Index1:=0 to Length(Files)-1 do
   begin
    T:=Files[Index1].Filename;
    if Files[Index1].Extension<>'' then
     T:=T+'.'+Files[Index1].Extension;
    T:=LeftStr(T+'            ',12);
-   T:=IntToStr(Files[Index1].Side)+'   |'
-     +IntToHex(Files[Index1].UserNumber,2)+'  |'+T+'|';
+   T:=' '+IntToStr(Files[Index1].Side)+'  | '
+         +IntToHex(Files[Index1].UserNumber,2)+' |'
+         +T+'|   ';
    if Files[Index1].ReadOnly then T:=T+'R'else T:=T+' ';
    if Files[Index1].Hidden   then T:=T+'H'else T:=T+' ';
    if Files[Index1].Archive  then T:=T+'A'else T:=T+' ';
    if Files[Index1].Deleted  then T:=T+'D'else T:=T+' ';
-   T:=T+'      |0x'+IntToHex(Files[Index1].Length,4)+'|';
+   T:=T+'   |0x'+IntToHex(Files[Index1].Length,4)+'|';
+   case Files[Index1].HeaderType of
+    diNone    : T:=T+' None |';
+    diSOFT968 : T:=T+'AMSDOS|';
+    diPLUS3DOS: T:=T+'+3 DOS|';
+    else T:=T+'??????';
+   end;
    for Index:=0 to Length(Files[Index1].Clusters)-1 do
    begin
     T:=T+'0x'+IntToHex(Files[Index1].Clusters[Index],4)+' : '
@@ -409,7 +469,7 @@ begin
         +'0x'+IntToHex(GetDSKOffset(Files[Index1].Clusters[Index]
                                    ,Files[Index1].Side,False),8);
     Memo1.Lines.Add(T);
-    T:='    |    |            |          |      |';
+    T:='    |    |            |          |      |      |';
    end;
    Application.ProcessMessages;
   end;
