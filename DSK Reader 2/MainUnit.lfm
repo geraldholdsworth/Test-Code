@@ -15,6 +15,7 @@ object MainForm: TMainForm
     Top = 0
     Width = 640
     Align = alTop
+    Caption = 'Drop a DSK file here to open and analyse'
     TabOrder = 0
   end
   object Memo1: TMemo

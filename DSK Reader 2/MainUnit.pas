@@ -60,7 +60,8 @@ type
    //DiscImage Functions
    function ReadString(ptr,term: Integer;control: Boolean=True): String;
    function ReadByte(Ptr: Cardinal): Byte;
-   function Read16b(offset: Cardinal): Word;
+   function Read16b(offset: Cardinal): Word; 
+   function Read32b(offset: Cardinal): Cardinal;
    function GetDataLength: Cardinal;
    function GetMajorFormatNumber: Word;
    //DSK Functions
@@ -69,7 +70,7 @@ type
    function GetDSKOffset(Cluster: Word;Side: Byte;First:Boolean=True): Cardinal;
    function GetDSKTrackSector(Cluster: Word;Side:Byte;First:Boolean=True): Word;
    function CheckForDSKBoot(Ptr: Cardinal): Boolean;
-   function GetDSKHeaderType(Ptr: Cardinal): TDSKHeaderType;
+   function GetDSKHeaderType(Ptr: Cardinal;out len: Cardinal): TDSKHeaderType;
    function ExtractSpectrumFile(FileDetails: TFile;
                                              var buffer: TDIByteArray): Boolean;
    //Form functions
@@ -127,6 +128,11 @@ end;
 function TMainForm.Read16b(offset: Cardinal): Word;
 begin
  Result:=FData[offset+1]<<8+FData[offset];
+end;
+
+function TMainForm.Read32b(offset: Cardinal): Cardinal;
+begin
+ Result:=FData[offset]+FData[offset+1]<<8+FData[offset+2]<<16+FData[offset+1]<<24;
 end;
 
 function TMainForm.GetDataLength: Cardinal;
@@ -362,7 +368,8 @@ begin
      if Length(Files[Index1].Clusters)>0 then
       Files[Index1].HeaderType:=GetDSKHeaderType(
                                          GetDSKOffset(Files[Index1].Clusters[0]
-                                                     ,Files[Index1].Side));
+                                                     ,Files[Index1].Side)
+                                         ,Files[Index1].Length);
      //Next file
      Inc(Ptr,$20);
      //End of sector?
@@ -456,16 +463,21 @@ end;
 {-------------------------------------------------------------------------------
 Identify file header type
 -------------------------------------------------------------------------------}
-function TMainForm.GetDSKHeaderType(Ptr: Cardinal): TDSKHeaderType;
+function TMainForm.GetDSKHeaderType(Ptr: Cardinal;out len: Cardinal): TDSKHeaderType;
 var
  Index: Integer=0;
  Ctr  : Word=0;
 begin
  Result:=diNone;
  Ctr:=0;
+ len:=0;
  for Index:=0 to $42 do
   inc(Ctr,ReadByte(Ptr+Index));
- if(Ctr=Read16b(Ptr+$43))and(Ctr<>0)then Result:=diSOFT968
+ if(Ctr=Read16b(Ptr+$43))and(Ctr<>0)then
+ begin
+  Result:=diSOFT968;
+  len:=Read16b(Ptr+$18);
+ end
  else
   if (ReadString(Ptr,-8)='PLUS3DOS')
   and(ReadByte(Ptr+8)=$1A)then
@@ -473,7 +485,11 @@ begin
    Ctr:=0;
    for Index:=0 to $7E do
     inc(Ctr,ReadByte(Ptr+Index));
-   if(Ctr AND $FF)=ReadByte(Ptr+$7F) then Result:=diPLUS3DOS
+   if(Ctr AND $FF)=ReadByte(Ptr+$7F) then
+   begin
+    Result:=diPLUS3DOS;
+    len:=Read32b(Ptr+$B);
+   end;
   end;
 end;
 
@@ -675,12 +691,15 @@ begin
     T:='    |    |            |          |      |      |';
    end;
    Application.ProcessMessages;
-{   ExtractSpectrumFile(Files[Index1],buffer);
-   F:=TFileStream.Create('Users/geraldholdsworth/Downloads/'
-                        +Files[Index1].Filename+'.'
-                        +Files[Index1].Extension,fmCreate or fmShareDenyNone);
-   F.Write(buffer[0],Length(buffer));
-   F.Free;}
+   if not Files[Index1].Deleted then
+   begin
+    ExtractSpectrumFile(Files[Index1],buffer);
+    T:=ExtractFilePath(FileNames[0])+Files[Index1].Filename;
+    if Files[Index1].Extension<>'' then T:=T+'.'+Files[Index1].Extension;
+    F:=TFileStream.Create(T,fmCreate or fmShareDenyNone);
+    F.Write(buffer[0],Length(buffer));
+    F.Free;
+   end;
   end;
  end else Memo1.Lines.Add('Invalid image');
 end;
