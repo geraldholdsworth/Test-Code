@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="AmigaDisc.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="44"/>
+        <CursorPos X="69" Y="51"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Lazarus 4.6/fpc/3.2.4/sources/rtl/objpas/classes/classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="997"/>
+        <CursorPos X="14" Y="1030"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Lazarus 4.6/fpc/3.2.4/sources/rtl/objpas/classes/streams.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="692"/>
+        <CursorPos X="67" Y="743"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DiscImageManager/ConsoleAppUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="43"/>
+        <CursorPos X="24" Y="67"/>
+        <UsageCount Value="10"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="27">
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="17" Column="9"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="16" Column="34"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="27" Column="20"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="19" Column="47"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="52" Column="60"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="13" Column="14"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="16" Column="3"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="67" Column="110" TopLine="14"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="80" Column="55" TopLine="26"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="111" Column="75" TopLine="57"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="24" Column="39"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="109" Column="16" TopLine="61"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="121" Column="87" TopLine="66"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="19" Column="7"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="121" Column="78" TopLine="72"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="118" Column="50" TopLine="75"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="150" Column="39" TopLine="97"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="158" Column="26" TopLine="104"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="39" Column="24" TopLine="17"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="161" Column="4" TopLine="106"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="65" Column="56" TopLine="46"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="72" Column="11" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="77" Column="3" TopLine="48"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="138" Column="126" TopLine="98"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="139" Column="5" TopLine="110"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="65" Column="10" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="67" Column="65" TopLine="54"/>
+      </Position>
+      <Position>
+        <Filename Value="AmigaDisc.lpr"/>
+        <Caret Line="217" Column="16" TopLine="212"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
