@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <ManyBuildModesSelection Value="&quot;macOS ARM&quot;,&quot;macOS Intel&quot;,Windows,Linux,&quot;Linux ARM&quot;"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="135"/>
+        <CursorPos X="43" Y="155"/>
+        <UsageCount Value="64"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Lazarus 4/fpc/3.2.2/sources/rtl/unix/sysutils.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="112"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Lazarus 4/fpc/3.2.2/sources/packages/rtl-objpas/src/inc/strutils.pp"/>
+        <UnitName Value="StrUtils"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="838"/>
+        <CursorPos X="3" Y="844"/>
+        <UsageCount Value="9"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DiscImageManager/MainUnit_Console.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1044"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DiscImageManager/ConsoleAppUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="39"/>
+        <CursorPos X="26" Y="70"/>
+        <UsageCount Value="6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Lazarus 4/fpc/3.2.2/sources/packages/rtl-objpas/src/inc/variants.pp"/>
+        <UnitName Value="Variants"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="176"/>
+        <CursorPos X="48" Y="168"/>
+        <UsageCount Value="7"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Lazarus 4/fpc/3.2.2/sources/packages/fcl-xml/src/dom.pp"/>
+        <UnitName Value="DOM"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="455"/>
+        <CursorPos X="14" Y="477"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Lazarus 4/fpc/3.2.2/sources/rtl/inc/systemh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1143"/>
+        <CursorPos X="11" Y="1167"/>
+        <UsageCount Value="14"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../JSON Parser/Unit1.pas"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="53"/>
+        <UsageCount Value="9"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DiscImageManager/DiscImage.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="89"/>
+        <CursorPos X="18" Y="121"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../DiscImageManager/DiscImageUtils.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="272"/>
+        <CursorPos X="2" Y="230"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../../../Downloads/ValidHex.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="56" Y="15"/>
+        <UsageCount Value="10"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="28">
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="144" Column="42" TopLine="120"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="145" Column="8" TopLine="121"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="151" Column="22" TopLine="112"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="97" Column="41" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="179" Column="9" TopLine="132"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="175" Column="43" TopLine="137"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="87" Column="36" TopLine="62"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="16" Column="3"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="13" Column="44"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="31" Column="19"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="206" Column="9" TopLine="168"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="28" Column="51" TopLine="11"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="35" Column="25" TopLine="7"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="33" Column="6" TopLine="14"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="34" Column="61" TopLine="14"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="222" Column="50" TopLine="188"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="118" Column="14" TopLine="103"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="10" Column="12"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="32" Column="31" TopLine="8"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="10" Column="3"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="50" Column="5" TopLine="26"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="10" Column="3"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="19" Column="38" TopLine="13"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="54" Column="45" TopLine="21"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="261" Column="55" TopLine="222"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="79" Column="40" TopLine="7"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="14" Column="36"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="63" Column="2" TopLine="39"/>
+      </Position>
+      <Position>
+        <Filename Value="AcornInfToJSON.lpr"/>
+        <Caret Line="168" Column="28" TopLine="135"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+  <Debugging>
+    <Watches>
+      <Item>
+        <Expression Value="temp"/>
+      </Item>
+      <Item>
+        <Expression Value="Image.Disc[dir].Entries[entry].Attributes"/>
+      </Item>
+    </Watches>
+  </Debugging>
+</CONFIG>
